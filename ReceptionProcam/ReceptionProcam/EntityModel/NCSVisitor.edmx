@@ -15,6 +15,16 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblPurposeMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurposeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurposeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblVisitor">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,6 +55,7 @@
         <Function Name="uspGetVisitorPerDayCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBNCSVisitorModelStoreContainer">
           <EntitySet Name="tblIdentityMaster" EntityType="Self.tblIdentityMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPurposeMaster" EntityType="Self.tblPurposeMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitor" EntityType="Self.tblVisitor" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -56,6 +67,7 @@
           <FunctionImport Name="uspGetVisitorPerDayCount1" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorPerDayCount1_Result)" />
           <EntitySet Name="tblVisitors" EntityType="DBNCSVisitorModel.tblVisitor" />
           <EntitySet Name="tblIdentityMasters" EntityType="DBNCSVisitorModel.tblIdentityMaster" />
+          <EntitySet Name="tblPurposeMasters" EntityType="DBNCSVisitorModel.tblPurposeMaster" />
         </EntityContainer>
         <ComplexType Name="uspGetVisitorPerDayCount_Result">
           <Property Type="DateTime" Name="Date" Nullable="true" />
@@ -99,6 +111,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProofName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProofCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblPurposeMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurposeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PurposeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
@@ -151,6 +173,17 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ProofCode" ColumnName="ProofCode" />
                 <ScalarProperty Name="ProofName" ColumnName="ProofName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPurposeMasters">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblPurposeMaster">
+              <MappingFragment StoreEntitySet="tblPurposeMaster">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PurposeCode" ColumnName="PurposeCode" />
+                <ScalarProperty Name="PurposeName" ColumnName="PurposeName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

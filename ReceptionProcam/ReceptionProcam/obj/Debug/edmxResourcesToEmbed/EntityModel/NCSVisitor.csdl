@@ -5,6 +5,7 @@
     <FunctionImport Name="uspGetVisitorPerDayCount1" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorPerDayCount1_Result)" />
     <EntitySet Name="tblVisitors" EntityType="DBNCSVisitorModel.tblVisitor" />
     <EntitySet Name="tblIdentityMasters" EntityType="DBNCSVisitorModel.tblIdentityMaster" />
+    <EntitySet Name="tblPurposeMasters" EntityType="DBNCSVisitorModel.tblPurposeMaster" />
   </EntityContainer>
   <ComplexType Name="uspGetVisitorPerDayCount_Result">
     <Property Type="DateTime" Name="Date" Nullable="true" />
@@ -48,6 +49,16 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProofName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProofCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tblPurposeMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurposeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PurposeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
   </EntityType>

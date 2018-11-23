@@ -164,9 +164,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Area\AreaAreaRegistration.cs" />
+    <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
     <Compile Include="Areas\Area\Models\IdentityMasters.cs" />
+    <Compile Include="Areas\Area\Models\PurposeMasters.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -187,6 +189,9 @@
       <DependentUpon>NCSVisitor.edmx</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblIdentityMaster.cs">
+      <DependentUpon>NCSVisitor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblPurposeMaster.cs">
       <DependentUpon>NCSVisitor.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblVisitor.cs">
@@ -545,6 +550,9 @@
     <Content Include="Areas\Area\Views\IdentificationMaster\IdentityList.cshtml" />
     <Content Include="Areas\Area\Views\IdentificationMaster\EditIdentity.cshtml" />
     <Content Include="Areas\Area\Views\Welcome\Index.cshtml" />
+    <Content Include="Areas\Area\Views\PurposeMaster\PurposeMaster.cshtml" />
+    <Content Include="Areas\Area\Views\PurposeMaster\PurposeList.cshtml" />
+    <Content Include="Areas\Area\Views\PurposeMaster\EditPurpose.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

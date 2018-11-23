@@ -29,6 +29,7 @@ namespace ReceptionProcam.EntityModel
     
         public virtual DbSet<tblVisitor> tblVisitors { get; set; }
         public virtual DbSet<tblIdentityMaster> tblIdentityMasters { get; set; }
+        public virtual DbSet<tblPurposeMaster> tblPurposeMasters { get; set; }
     
         public virtual ObjectResult<uspGetVisitorPerDayCount_Result> uspGetVisitorPerDayCount()
         {

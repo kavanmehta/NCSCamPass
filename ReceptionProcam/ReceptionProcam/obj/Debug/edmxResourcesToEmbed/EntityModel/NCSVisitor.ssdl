@@ -10,6 +10,16 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="tblPurposeMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurposeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PurposeCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="tblVisitor">
     <Key>
       <PropertyRef Name="Id" />
@@ -40,6 +50,7 @@
   <Function Name="uspGetVisitorPerDayCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="DBNCSVisitorModelStoreContainer">
     <EntitySet Name="tblIdentityMaster" EntityType="Self.tblIdentityMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPurposeMaster" EntityType="Self.tblPurposeMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblVisitor" EntityType="Self.tblVisitor" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>
