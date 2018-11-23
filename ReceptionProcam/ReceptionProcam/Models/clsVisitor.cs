@@ -45,7 +45,7 @@ namespace ReceptionProcam.Models
         [DisplayName("Asset ID")]
         public string AssetId { get; set; }
 
-        [DisplayName("From")]
+        [DisplayName("Location")]
         [Required(ErrorMessage = "Please from details")]
         public string Form { get; set; }
 
@@ -58,7 +58,7 @@ namespace ReceptionProcam.Models
         public string SubLocation { get; set; }
 
 
-        [DisplayName("Building")]
+        [DisplayName("NCS Ofice Location ")]
         public string Building { get; set; }
 
         [Required(ErrorMessage = "Please enter Gate No")]
