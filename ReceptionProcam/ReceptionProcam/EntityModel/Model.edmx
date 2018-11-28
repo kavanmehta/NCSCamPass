@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblGateMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -98,7 +98,7 @@
           <Property Name="ValidUpto" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -168,7 +168,8 @@
           <EntitySet Name="tblVisitorPersonalData" EntityType="Self.tblVisitorPersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetails" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBNCSVisitorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -265,7 +266,7 @@
           <Property Name="ValidUpto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -282,7 +283,7 @@
             <Parameter Name="GovId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspGetVisitorDetailsById" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsById_Result)">
-          <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspGetVisitorDetailsNew" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsNew_Result)" />
           <FunctionImport Name="uspGetVisitorPerDayCount" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorPerDayCount_Result)" />
@@ -363,7 +364,7 @@
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="VCreatedDate" Nullable="true" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="VModifiedDate" Nullable="true" MaxLength="50" />
         </ComplexType>
@@ -410,7 +411,7 @@
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="VCreatedDate" Nullable="true" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="VModifiedDate" Nullable="true" MaxLength="50" />
         </ComplexType>
@@ -424,10 +425,10 @@
           <Property Type="String" Name="EmailId" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="GovId" Nullable="true" />
           <Property Type="String" Name="ImagePath" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="CreatedDate" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="ModifiedDate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ModifiedDate" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="PId" Nullable="false" />
           <Property Type="String" Name="VisitorId" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="VGovId" Nullable="true" MaxLength="50" />
@@ -441,10 +442,10 @@
           <Property Type="String" Name="TimeIn" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="VModifiedDate" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="VModifiedDate" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="uspGetVisitorPerDayCount_Result">
           <Property Type="DateTime" Name="VisDate" Nullable="true" />

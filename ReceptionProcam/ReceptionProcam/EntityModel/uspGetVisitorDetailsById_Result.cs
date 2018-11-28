@@ -40,7 +40,7 @@ namespace ReceptionProcam.EntityModel
         public string ValidUpto { get; set; }
         public string Remark { get; set; }
         public string VCreatedBy { get; set; }
-        public string VCreatedDate { get; set; }
+        public Nullable<System.DateTime> VCreatedDate { get; set; }
         public string VModifiedBy { get; set; }
         public string VModifiedDate { get; set; }
     }

@@ -325,6 +325,5 @@ E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\bin\Microsoft.Owin.Secur
 E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\bin\Microsoft.Owin.Security.Google.xml
 E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\bin\Microsoft.Owin.Security.Twitter.xml
 E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\obj\Debug\ReceptionProcam.csprojResolveAssemblyReference.cache
 E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\obj\Debug\ReceptionProcam.dll
 E:\Kavan_Git\NCSCamPass\ReceptionProcam\ReceptionProcam\obj\Debug\ReceptionProcam.pdb

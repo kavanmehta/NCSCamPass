@@ -130,7 +130,7 @@
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { Id = "txtGovIdNo", autocomplete = "off", maxlength = 100, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
+                    @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new {@readonly="readonly", Id = "txtGovIdNo", autocomplete = "off", maxlength = 15, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
                 </div>
                 <div class="col-lg-6">

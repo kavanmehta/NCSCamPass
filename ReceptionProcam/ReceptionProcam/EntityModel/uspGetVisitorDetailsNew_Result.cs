@@ -23,7 +23,7 @@ namespace ReceptionProcam.EntityModel
         public Nullable<int> GovId { get; set; }
         public string ImagePath { get; set; }
         public string CreatedBy { get; set; }
-        public string CreatedDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public string ModifiedDate { get; set; }
         public int PId { get; set; }
