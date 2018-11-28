@@ -13,7 +13,7 @@ namespace ReceptionProcam.EntityModel
     
     public partial class uspGetVisitorPerDayCount_Result
     {
-        public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<System.DateTime> VisDate { get; set; }
         public Nullable<int> No_of_Visitor { get; set; }
     }
 }

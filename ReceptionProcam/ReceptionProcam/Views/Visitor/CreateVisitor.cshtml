@@ -62,24 +62,29 @@
 }
 
 @{
-    List<SelectListItem> listGate = new List<SelectListItem>();
-    listGate.Add(new SelectListItem
+    List<SelectListItem> listGovId = new List<SelectListItem>();
+    listGovId.Add(new SelectListItem
+    {
+        Text = "--Please select Gov Id Proof--",
+        Value = "0",
+        Selected = true
+    });
+    listGovId.Add(new SelectListItem
          {
              Text = "Adhaar Card",
              Value = "1",
-             Selected = true
          });
-    listGate.Add(new SelectListItem
+    listGovId.Add(new SelectListItem
          {
              Text = "Pan Card",
              Value = "2"
          });
-    listGate.Add(new SelectListItem
+    listGovId.Add(new SelectListItem
          {
              Text = "Voter Card",
              Value = "3"
          });
-    listGate.Add(new SelectListItem
+    listGovId.Add(new SelectListItem
     {
         Text = "Passport",
         Value = "4"
@@ -111,7 +116,7 @@
     </script>*@
    
 
-    @using (Html.BeginForm(new { @class = "m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed", role = "form" }))
+    @using (Html.BeginForm("CreateVisitor","Visitor", new { }))
     {
         @Html.AntiForgeryToken()
 
@@ -143,9 +148,18 @@
                     <div class="col-lg-2 offset-2 camDivsty" style="padding:10px">
                         <input type="button" class="btn btn-primary" value="Capture" onclick="Capture();" />
                     </div>
-                    <div class="col-lg-2"><img id="imgCapture" style="visibility: hidden;height:155px;width:200px; padding:10px" /></div>
+                    <div class="col-lg-2"><img id="imgCapture" style="height:155px;width:200px; padding:10px" /></div>
                 </div>
                 <br>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { Id="txtGovIdNo",autocomplete = "off", maxlength = 100, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.VisitorId, htmlAttributes: new { })
@@ -153,32 +167,31 @@
                     </div>
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Name, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off", maxlength=100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off",Id="txtName", maxlength=100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
                     </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12, @class = "form-control m-input", @placeholder = "Mobile No" } })
+                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12,Id="txtMobile", @class = "form-control m-input", @placeholder = "Mobile No" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })</p>
                     </div>
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, @class = "form-control m-input", @placeholder = "Email" } })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30,Id="txtEmail", @class = "form-control m-input", @placeholder = "Email" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
                     </div>
                 </div>
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
-                        @Html.DropDownListFor(m => m.GovId, listGate, "-- Select Gov Id Proof --", new { autocomplete = "off", @class = "form-control m-input" })
+                        @Html.DropDownListFor(m => m.GovId, listGovId, new { Id = "ddlGovId",autocomplete = "off", @class = "form-control m-input" })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
                     </div>
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.DOB, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @Id = "txtDOB", autocomplete = "off", @class = "form-control m-input", @placeholder = "Date of Birth" } })
+                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @Id = "txtDOB", autocomplete = "off" ,@class = "form-control m-input", @placeholder = "Date of Birth" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })</p>
                     </div>
                 </div>
@@ -189,9 +202,9 @@
                         <p class="help-block">@Html.ValidationMessageFor(m => m.AssetId, "", new { @class = "text-danger" })</p>
                     </div>
                     <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Form, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Form, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "From" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Form, "", new { @class = "text-danger" })</p>
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Location" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })</p>
                     </div>
                 </div>
                 <div class="form-group m-form__group row">
@@ -209,9 +222,9 @@
                 </div>
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Building, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.Building, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Building" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Building, "", new { @class = "text-danger" })</p>
+                        @Html.LabelFor(model => model.OfficeLocation, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.OfficeLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office Location" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.OfficeLocation, "", new { @class = "text-danger" })</p>
                     </div>
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>

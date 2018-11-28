@@ -173,35 +173,53 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
-    <Compile Include="EntityModel\NCSVisitor.Context.cs">
+    <Compile Include="EntityModel\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NCSVisitor.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\NCSVisitor.cs">
+    <Compile Include="EntityModel\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\NCSVisitor.Designer.cs">
+    <Compile Include="EntityModel\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NCSVisitor.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblGateMaster.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblIdentityMaster.cs">
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblPurposeMaster.cs">
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblVisitor.cs">
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\uspGetVisitorPerDayCount1_Result.cs">
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+    <Compile Include="EntityModel\tblVisitorPersonalData.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblVisitorVisitDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetVisitorDetailsByGovId_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetVisitorDetailsById_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetVisitorDetailsNew_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetVisitorDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\uspGetVisitorPerDayCount_Result.cs">
-      <DependentUpon>NCSVisitor.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -494,23 +512,6 @@
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.woff" />
-    <EntityDeploy Include="EntityModel\NCSVisitor.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NCSVisitor.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="EntityModel\NCSVisitor.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NCSVisitor.edmx</DependentUpon>
-      <LastGenOutput>NCSVisitor.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EntityModel\NCSVisitor.edmx.diagram">
-      <DependentUpon>NCSVisitor.edmx</DependentUpon>
-    </Content>
-    <Content Include="EntityModel\NCSVisitor.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NCSVisitor.edmx</DependentUpon>
-      <LastGenOutput>NCSVisitor.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -553,6 +554,23 @@
     <Content Include="Areas\Area\Views\PurposeMaster\PurposeMaster.cshtml" />
     <Content Include="Areas\Area\Views\PurposeMaster\PurposeList.cshtml" />
     <Content Include="Areas\Area\Views\PurposeMaster\EditPurpose.cshtml" />
+    <EntityDeploy Include="EntityModel\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EntityModel\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityModel\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityModel\Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

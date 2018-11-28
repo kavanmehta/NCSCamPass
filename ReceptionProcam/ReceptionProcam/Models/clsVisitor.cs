@@ -19,6 +19,9 @@ namespace ReceptionProcam.Models
         [DisplayName("Visitor Number")]
         public string VisitorId { get; set; }
 
+        [DisplayName("Employee Id")]
+        public string  EmpId { get; set; }
+
         [Required(ErrorMessage = "Please enter Name")]
         [DisplayName("Name")]
         [RegularExpression(@"^[a-zA-Z ]*$", ErrorMessage = "Use letters only please")]
@@ -31,6 +34,10 @@ namespace ReceptionProcam.Models
         [DisplayName("Identification Proof")]
         [Required(ErrorMessage = "Please select any identity proof")]
         public string GovId { get; set; }
+
+        [DisplayName("Identification Proof No")]
+        [Required(ErrorMessage = "Please insert any identity proof No")]
+        public string GovIdNo { get; set; }
 
         [DisplayName("Contact No")]
         [Required(ErrorMessage = "Please enter contact No")]
@@ -47,7 +54,7 @@ namespace ReceptionProcam.Models
 
         [DisplayName("Location")]
         [Required(ErrorMessage = "Please from details")]
-        public string Form { get; set; }
+        public string Location { get; set; }
 
         [Required(ErrorMessage = "Please enter whom to meet")]
         [DisplayName("Meet")]
@@ -58,8 +65,8 @@ namespace ReceptionProcam.Models
         public string SubLocation { get; set; }
 
 
-        [DisplayName("NCS Ofice Location ")]
-        public string Building { get; set; }
+        [DisplayName("NCS Office Location ")]
+        public string OfficeLocation { get; set; }
 
         [Required(ErrorMessage = "Please enter Gate No")]
         public string Gate { get; set; }

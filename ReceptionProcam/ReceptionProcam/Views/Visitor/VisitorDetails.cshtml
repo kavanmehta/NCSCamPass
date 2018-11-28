@@ -39,6 +39,7 @@
                 <thead>
                     <tr>
                         <th>@Html.DisplayName("Visitor Image")</th>
+                        <th>@Html.DisplayName("Gov Id No")</th>
                         <th>@Html.DisplayName("Visitor Number")</th>
                         <th>@Html.DisplayName("Full Name")</th>
                         <th>@Html.DisplayName("From")</th>
@@ -57,9 +58,10 @@
                     {
                         <tr>
                             <td><img src="@Url.Content(@item.ImagePath)" alt="Image" style="width:60%; height:auto"/></td>
+                            <td>@item.GovIdNo</td>
                             <td>@item.VisitorId</td>
                             <td>@item.Name</td>
-                            <td>@item.Form</td>
+                            <td>@item.Location</td>
                             <td>@item.ToMeet</td>
                             <td>@item.Purpose</td>
                             <td>@Html.ActionLink("Edit", "EditVisitor", new { id = item.Id })</td>

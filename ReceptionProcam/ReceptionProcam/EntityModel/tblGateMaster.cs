@@ -10,10 +10,14 @@
 namespace ReceptionProcam.EntityModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class uspGetVisitorPerDayCount1_Result
+    public partial class tblGateMaster
     {
-        public Nullable<System.DateTime> VisDate { get; set; }
-        public Nullable<int> No_of_Visitor { get; set; }
+        public int Id { get; set; }
+        public string GateName { get; set; }
+        public string GateCode { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }

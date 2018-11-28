@@ -58,7 +58,8 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#txtVisitorId').attr('readonly', true)
+    $('#txtVisitorId').attr('readonly', true);
+    $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
 });
 
 //function printdiv(printpage) {
@@ -176,3 +177,47 @@ $(document).ready(function () {
 //        toastr.warning("Please Capture Photo first!!")
 //    }
 //}
+
+
+
+$(document).ready(function () {
+    $("#txtGovIdNo").change(function () {
+        var govIdNo = $('#txtGovIdNo').val();
+        
+
+    });
+});
+
+
+$('#txtGovIdNo').change(function (event) {
+    var govId = $('#txtGovIdNo').val();
+    var VisType = '2';
+   // debugger
+    $.ajax({
+       
+        url: "/Visitor/getVisitorDataByGovId",
+        type: "GET",
+        data: { 'VisType' : VisType,'govId':govId },
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            if (result != "")
+            {
+                $('#txtName').val(result[0].Name);
+                $('#txtMobile').val(result[0].MobileNo);
+                $('#txtEmail').val(result[0].EmailId);
+                $('#ddlGovId').val(result[0].GovId);
+                $('#txtDOB').val(result[0].DOB);
+                $('#imgCapture').attr("src",result[0].ImagePath);
+            }
+            else {
+                $('#txtName').val("");
+                $('#txtMobile').val("");
+                $('#txtEmail').val("");
+                $('#ddlGovId').val(0);
+                $('#txtDOB').val("");
+                
+            }
+        }
+});
+});
