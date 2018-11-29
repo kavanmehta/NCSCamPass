@@ -15,7 +15,14 @@
         });
     });
 </script>*@
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@TempData["SuccessUpload"]' == "File uploaded successfully") {
+            toastr.success('File uploaded successfully');
+        }
+    });
+</script>
+ 
 @using (Html.BeginForm(new { @class = "m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed", role = "form" }))
 {
     @Html.AntiForgeryToken()

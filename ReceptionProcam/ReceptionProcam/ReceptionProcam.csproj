@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="EntityModel\Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -647,6 +648,7 @@
     <Content Include="Views\Visitor\ViewVisitor.cshtml" />
     <Content Include="Views\Visitor\Par_PrintVisitor.cshtml" />
     <Content Include="Views\Visitor\PrintPass.cshtml" />
+    <Content Include="Views\Templates\TemplateDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
