@@ -46,6 +46,9 @@
                         <th>@Html.DisplayName("To Meet")</th>
                         <th>@Html.DisplayName("Purpose")</th>
                         <th>
+                            Submit
+                        </th>
+                        <th>
                             Edit
                         </th>
                         <th>
@@ -64,6 +67,7 @@
                             <td>@item.Location</td>
                             <td>@item.ToMeet</td>
                             <td>@item.Purpose</td>
+                            <td>@Html.ActionLink("Edit", "EditVisitor", new { id = item.Id })</td>
                             <td>@Html.ActionLink("Edit", "EditVisitor", new { id = item.Id })</td>
                             <td>@Html.ActionLink("Print", "PrintPass", new { id = item.Id })</td>
                         </tr>

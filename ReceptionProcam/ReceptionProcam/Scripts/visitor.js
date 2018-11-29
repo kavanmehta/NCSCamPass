@@ -129,14 +129,25 @@ $(document).ready(function () {
             ValidityDate.setDate(ValidityDate.getDate() + 0);
             $('#txtValidUpto').attr('readonly', true)
         }
+        else if (AddDays == 2) {
+            $('#txtValidUpto').datetimepicker('remove');
+            ValidityDate.setDate(ValidityDate.getDate() + 1);
+            $('#txtValidUpto').attr('readonly', true)
+        }
         else if (AddDays == 3) {
             $('#txtValidUpto').datetimepicker('remove');
             ValidityDate.setDate(ValidityDate.getDate() + 2);
             $('#txtValidUpto').attr('readonly', true)
         }
-        else if (AddDays == 7) {
+        else if (AddDays == 4) {
             $('#txtValidUpto').datetimepicker('remove');
-            ValidityDate.setDate(ValidityDate.getDate() + 6);
+            ValidityDate.setDate(ValidityDate.getDate() + 3);
+            $('#txtValidUpto').attr('readonly', true)
+        }
+
+        else if (AddDays == 5) {
+            $('#txtValidUpto').datetimepicker('remove');
+            ValidityDate.setDate(ValidityDate.getDate() + 4);
             $('#txtValidUpto').attr('readonly', true)
         }
         else if (AddDays == 8) {
@@ -208,7 +219,12 @@ $('#txtGovIdNo').change(function (event) {
                 $('#txtEmail').val(result[0].EmailId);
                 $('#ddlGovId').val(result[0].GovId);
                 $('#txtDOB').val(result[0].DOB);
-                $('#imgCapture').attr("src",result[0].ImagePath);
+                $('#imgCapture').attr("src", result[0].ImagePath);
+                $("#SubmitBtn").removeAttr('disabled');
+                var path1 = result[0].ImagePath;
+                $('#txtImagePath').val(path1);
+                
+                //$.session.set('CapturedImage', result[0].ImagePath);
             }
             else {
                 $('#txtName').val("");
@@ -216,7 +232,10 @@ $('#txtGovIdNo').change(function (event) {
                 $('#txtEmail').val("");
                 $('#ddlGovId').val(0);
                 $('#txtDOB').val("");
-                
+                $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
+                $("#SubmitBtn").attr("disabled", "disabled")
+                $('#txtImagePath').val("");
+               // $.session.remove('CapturedImage');
             }
         }
 });
