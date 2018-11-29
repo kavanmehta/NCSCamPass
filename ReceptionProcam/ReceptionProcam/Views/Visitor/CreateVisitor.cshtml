@@ -44,15 +44,24 @@
          });
     listDays.Add(new SelectListItem
          {
-             Text = "3 Days",
-             Value = "3"
+             Text = "2 Days",
+             Value = "2"
          });
     listDays.Add(new SelectListItem
-         {
-             Text = "7 Days",
-             Value = "7"
-         });
-
+    {
+        Text = "3 Days",
+        Value = "3"
+    });
+    listDays.Add(new SelectListItem
+    {
+        Text = "4 Days",
+        Value = "4"
+    });
+    listDays.Add(new SelectListItem
+    {
+        Text = "5 Days",
+        Value = "5"
+    });
     listDays.Add(new SelectListItem
     {
         Text = "Please select date",
@@ -89,6 +98,31 @@
         Text = "Passport",
         Value = "4"
     });
+}
+
+@{
+    List<SelectListItem> listPurpose = new List<SelectListItem>();
+    listPurpose.Add(new SelectListItem
+    {
+        Text = "--Please select Purpose--",
+        Value = "0",
+        Selected = true
+    });
+    listPurpose.Add(new SelectListItem
+         {
+             Text = "Interview",
+             Value = "1",
+         });
+    listPurpose.Add(new SelectListItem
+         {
+             Text = "Meeting",
+             Value = "2"
+         });
+    listPurpose.Add(new SelectListItem
+         {
+             Text = "Other",
+             Value = "3"
+         });
 }
 
 
@@ -139,11 +173,13 @@
                 </div>
             </div>
             <!--begin::Form-->
-
+            <div style="visibility:hidden">
+                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { autocomplete = "off", Id = "txtImagePath" } })
+            </div>
             <div class="m-portlet__body">
                 <div class="form-group m-form__group row">
                     <div id="webcam" class="col-lg-2" style="padding:10px">
-
+                        
                     </div>
                     <div class="col-lg-2 offset-2 camDivsty" style="padding:10px">
                         <input type="button" class="btn btn-primary" value="Capture" onclick="Capture();" />
@@ -263,9 +299,14 @@
                 <div class="form-group m-form__group row">
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @Id = "txtPurpose", maxlength = 50, autocomplete = "off", @class = "form-control m-input", @placeholder = "Purpose" } })
+                        @Html.DropDownListFor(m => m.Purpose, listPurpose,  new { autocomplete = "off", @class = "form-control m-input" })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
                     </div>
+                    @*<div class="col-lg-6">
+                        @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @Id = "txtPurpose", maxlength = 50, autocomplete = "off", @class = "form-control m-input", @placeholder = "Purpose" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
+                    </div>*@
 
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Remark, htmlAttributes: new { })

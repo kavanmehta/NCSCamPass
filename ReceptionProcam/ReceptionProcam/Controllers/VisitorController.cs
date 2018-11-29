@@ -66,7 +66,7 @@ namespace ReceptionProcam.Controllers
                 using (StreamReader reader = new StreamReader(Request.InputStream))
                 {
                     string hexString = Server.UrlEncode(reader.ReadToEnd());
-                    string imageName = DateTime.Now.ToString("ddMMyyhhmmsstt");
+                    string imageName = DateTime.Now.ToString("ddMMyyhhmmssfff");
                     string imagePath = string.Format("~/VisitorImage/{0}.png", imageName);
                     System.IO.File.WriteAllBytes(Server.MapPath(imagePath), ConvertHexToBytes(hexString));
                     Session["CapturedImage"] = VirtualPathUtility.ToAbsolute(imagePath);
@@ -149,12 +149,12 @@ namespace ReceptionProcam.Controllers
                         //dbVis.CreatedBy = objVisitor.CreatedBy;
                         //dbVis.CreatedDate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         //objVisEnti.tblVisitors.Add(dbVis);
+                        var sss = Session["CapturedImage"].ToString() == "" ? objVisitor.ImagePath : Session["CapturedImage"].ToString();
                         ObjectParameter returnId = new ObjectParameter("Id", typeof(int));
-                        var result = objVisEnti.uspInsertVisitorDetails(objVisitor.EmpId, objVisitor.GovIdNo.ToUpper(), objVisitor.Name, objVisitor.DOB, objVisitor.MobileNo, objVisitor.Email, objVisitor.GovId, Session["CapturedImage"].ToString(), objVisitor.VisitorId, objVisitor.AssetId, objVisitor.Location, objVisitor.ToMeet, objVisitor.SubLocation, objVisitor.OfficeLocation, objVisitor.Gate, objVisitor.Purpose, objVisitor.TimeIn, objVisitor.ValidUpto, objVisitor.Remark, "123", System.DateTime.Now.ToString("dd-MM-yyyy"), returnId);
+                        var result = objVisEnti.uspInsertVisitorDetails(objVisitor.EmpId, objVisitor.GovIdNo.ToUpper(), objVisitor.Name, objVisitor.DOB, objVisitor.MobileNo, objVisitor.Email, objVisitor.GovId, sss, objVisitor.VisitorId, objVisitor.AssetId, objVisitor.Location, objVisitor.ToMeet, objVisitor.SubLocation, objVisitor.OfficeLocation, objVisitor.Gate, objVisitor.Purpose, objVisitor.TimeIn, objVisitor.ValidUpto, objVisitor.Remark, "123", System.DateTime.Now.ToString("dd-MM-yyyy"), returnId);
                         int VisId = Convert.ToInt32(returnId.Value);
                         TempData["Success"] = "Visitor added Successfully & Mail Sent to concern person!";
                         //SendEmail(objVisitor);
-                        //return View("CreateVisitor");
                         return RedirectToAction("PrintPass", new { id = VisId });
 
                     }
