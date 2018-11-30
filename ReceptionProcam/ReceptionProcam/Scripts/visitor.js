@@ -200,7 +200,7 @@ $(document).ready(function () {
 });
 
 
-$('#txtGovIdNo').change(function (event) {
+$('#txtGovIdNo').keyup(function (event) {
     var govId = $('#txtGovIdNo').val();
     var VisType = '2';
    // debugger
@@ -224,7 +224,6 @@ $('#txtGovIdNo').change(function (event) {
                 var path1 = result[0].ImagePath;
                 $('#txtImagePath').val(path1);
                 
-                //$.session.set('CapturedImage', result[0].ImagePath);
             }
             else {
                 $('#txtName').val("");
@@ -235,7 +234,18 @@ $('#txtGovIdNo').change(function (event) {
                 $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
                 $("#SubmitBtn").attr("disabled", "disabled")
                 $('#txtImagePath').val("");
-               // $.session.remove('CapturedImage');
+                $('#txtAssetId').val("");
+                $('#txtLocation').val("");
+                $('#txtToMeet').val("");
+                $('#txtSubLocation').val("");
+                $('#txtOfficeLocation').val("");
+                $('#txtValidUpto').val("");
+                $('#txtRemark').val("");
+
+                $('#ddlGate').val(0);
+                $('#ddlDays').val(0);
+                $('#ddlPurpose').val(0);
+                
             }
         }
 });
