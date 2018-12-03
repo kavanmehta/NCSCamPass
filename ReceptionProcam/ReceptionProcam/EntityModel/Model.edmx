@@ -101,6 +101,7 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsPassReturned" Type="bit" />
         </EntityType>
         <Function Name="uspGetVisitorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetailsByGovId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -268,6 +269,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsPassReturned" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="DBNCSVisitorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblGateMasters" EntityType="Self.tblGateMaster" />
@@ -539,6 +541,7 @@
           <EntitySetMapping Name="tblVisitorVisitDetails">
             <EntityTypeMapping TypeName="DBNCSVisitorModel.tblVisitorVisitDetail">
               <MappingFragment StoreEntitySet="tblVisitorVisitDetails">
+                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="VisitorId" ColumnName="VisitorId" />
                 <ScalarProperty Name="GovIdNo" ColumnName="GovIdNo" />
