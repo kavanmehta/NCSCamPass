@@ -91,6 +91,7 @@ namespace ReceptionProcam.Models
         public string ModifiedBy { get; set; }
         public string ModifiedDate { get; set; }
 
+        public bool IsPassReturned { get; set; }
 
     }
 

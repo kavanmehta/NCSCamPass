@@ -200,6 +200,25 @@ $(document).ready(function () {
 });
 
 
+
+function returnPass() {
+
+
+    var visitorId = $("#hidReturnPass").val();
+    $.ajax({  
+        type: "POST",  
+        url: "/Visitor/ReturnPass?id=" + visitorId,
+        dataType: "text"  ,
+        success: function(data) {  
+            $('#confirmModal').modal('toggle');
+            location.reload();
+         },  
+    error: function() {  
+        alert("Error occured!!")  
+    }  
+});  
+}
+
 $('#txtGovIdNo').change(function (event) {
     var govId = $('#txtGovIdNo').val();
     var VisType = '2';

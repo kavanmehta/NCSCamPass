@@ -379,5 +379,22 @@ namespace ReceptionProcam.Controllers
                 return this.Json("Error", JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public Boolean ReturnPass(string id)
+        {
+            var result = objVisEnti.tblVisitorVisitDetails.SingleOrDefault(b => b.GovIdNo == id);
+            if (result != null)
+            {
+                result.IsPassReturned = true;
+                objVisEnti.SaveChanges();
+                TempData["SuccessReturn"] = "Pass returned successfully";
+                return true;
+            }
+            else
+            {
+                return false ;
+            }
+        }
     }
 }
