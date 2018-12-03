@@ -24,6 +24,9 @@
         if ('@TempData["SuccessReturn"]' == "Pass returned successfully") {
             toastr.success('Pass returned successfully');
         }
+        if ('@TempData["SuccessUpdate"]' == "Visitor updated Successfully") {
+            toastr.success('Visitor updated Successfully');
+        }
     });
 
     $(document).ready(function () {
@@ -90,7 +93,7 @@
                             @if(@item.IsPassReturned == true)
                             {
                             <td>@Html.CheckBoxFor(x => x.IsPassReturned, new { @checked = "checked", @disabled = "disabled" })</td>
-                            <td>@Html.Label("Edit")</td>
+                             <td>@Html.ActionLink("View", "EditVisitor", new { id = item.Id })</td>
                             <td>@Html.Label("Print")</td>
                             }
                             else

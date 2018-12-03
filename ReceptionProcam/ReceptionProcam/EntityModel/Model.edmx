@@ -101,7 +101,7 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsPassReturned" Type="bit" />
+          <Property Name="IsPassReturned" Type="bit" Nullable="false" />
         </EntityType>
         <Function Name="uspGetVisitorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetailsByGovId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -269,7 +269,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPassReturned" Type="Boolean" />
+          <Property Name="IsPassReturned" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBNCSVisitorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblGateMasters" EntityType="Self.tblGateMaster" />
@@ -411,6 +411,7 @@
           <Property Type="String" Name="TimeIn" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsPassReturned" Nullable="true" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="VCreatedDate" Nullable="true" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="50" />
@@ -443,6 +444,7 @@
           <Property Type="String" Name="TimeIn" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsPassReturned" Nullable="true" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="20" />
@@ -541,7 +543,6 @@
           <EntitySetMapping Name="tblVisitorVisitDetails">
             <EntityTypeMapping TypeName="DBNCSVisitorModel.tblVisitorVisitDetail">
               <MappingFragment StoreEntitySet="tblVisitorVisitDetails">
-                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="VisitorId" ColumnName="VisitorId" />
                 <ScalarProperty Name="GovIdNo" ColumnName="GovIdNo" />
@@ -559,6 +560,7 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -646,6 +648,7 @@
                 <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
                 <ScalarProperty Name="VCreatedBy" ColumnName="VCreatedBy" />
                 <ScalarProperty Name="VCreatedDate" ColumnName="VCreatedDate" />
                 <ScalarProperty Name="VModifiedBy" ColumnName="VModifiedBy" />
@@ -682,6 +685,7 @@
                 <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
                 <ScalarProperty Name="VCreatedBy" ColumnName="VCreatedBy" />
                 <ScalarProperty Name="VCreatedDate" ColumnName="VCreatedDate" />
                 <ScalarProperty Name="VModifiedBy" ColumnName="VModifiedBy" />

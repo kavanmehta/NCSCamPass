@@ -59,7 +59,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#txtVisitorId').attr('readonly', true);
-    $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
+  //  $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
 });
 
 //function printdiv(printpage) {
@@ -89,7 +89,9 @@ function printdiv(printpage) {
 
 //});
 $(document).ready(function () {
-    if ($("#imgCapture").val() == "") {
+    var a = document.getElementById("imgCapture").src;
+    if(a==""){
+   // if ($("#imgCapture").src() == "") {
         toastr.warning("Please Capture Photo first!!")
         $("#SubmitBtn").attr("disabled", "disabled")
 

@@ -91,7 +91,7 @@ namespace ReceptionProcam.Controllers
                         foreach (DataRow dataRow in dt.Rows)
                         {
 
-                            dataRow["ImagePath"] = @"~\VisitorImage\ProfileIcon.png";
+                            dataRow["ImagePath"] = @"/VisitorImage/ProfileIcon.png";
                             string govId = dataRow["GovIdNo"].ToString();
                             //var row = objVisEnti.tblVisitorPersonalDatas.Any(x=>x.GovIdNo.Equals(dataRow["GovIdNo"]));
                             if (objVisEnti.tblVisitorPersonalDatas.Any(x => x.GovIdNo == govId))
@@ -152,7 +152,7 @@ namespace ReceptionProcam.Controllers
                                 sqlBulkCopy.ColumnMappings.Add("Remark", "Remark");
                                 sqlBulkCopy.ColumnMappings.Add("CreatedBy", "CreatedBy");
                                 sqlBulkCopy.ColumnMappings.Add("ModifiedBy", "ModifiedBy");
-                                //  sqlBulkCopy.ColumnMappings.Add("CreatedDate", "CreatedDate");
+                                sqlBulkCopy.ColumnMappings.Add("IsPassReturned", "IsPassReturned");
                                 sqlBulkCopy.ColumnMappings.Add("ModifiedDate", "ModifiedDate");
                                 con.Open();
                                 sqlBulkCopy.WriteToServer(dt);

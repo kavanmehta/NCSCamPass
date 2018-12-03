@@ -31,6 +31,6 @@ namespace ReceptionProcam.EntityModel
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public string ModifiedDate { get; set; }
-        public Nullable<bool> IsPassReturned { get; set; }
+        public bool IsPassReturned { get; set; }
     }
 }
