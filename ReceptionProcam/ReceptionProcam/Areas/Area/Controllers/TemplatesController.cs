@@ -16,6 +16,7 @@ namespace ReceptionProcam.Controllers
     {
         DBNCSVisitorEntities objVisEnti = new DBNCSVisitorEntities();
         // GET: Template
+        [HttpGet]
         public ActionResult TemplateDetails()
         {
             return View();

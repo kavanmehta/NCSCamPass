@@ -164,6 +164,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Area\AreaAreaRegistration.cs" />
+    <Compile Include="Areas\Area\Controllers\BulkVisitorMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
@@ -171,8 +172,9 @@
     <Compile Include="Areas\Area\Models\PurposeMasters.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TemplatesController.cs" />
+    <Compile Include="Areas\Area\Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="EntityModel\Model.Context.cs">
       <AutoGen>True</AutoGen>
@@ -572,6 +574,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Area\Views\BulkVisitorMaster\UploadTemplate.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -651,7 +654,9 @@
     <Content Include="Views\Visitor\ViewVisitor.cshtml" />
     <Content Include="Views\Visitor\Par_PrintVisitor.cshtml" />
     <Content Include="Views\Visitor\PrintPass.cshtml" />
-    <Content Include="Views\Templates\TemplateDetails.cshtml" />
+    <Content Include="Areas\Area\Views\Templates\TemplateDetails.cshtml" />
+    <Content Include="Template\DataInsertTemplate.xlsx" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
