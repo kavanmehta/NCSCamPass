@@ -9,14 +9,15 @@ $(function () {
 
             $.ajax({
                 type: "POST",
-                url:'/Visitor/GetCapture',
+                url: '/Visitor/GetCapture',
                 data: '',
                 contentType: "application/json; charset=utf-8",
                 dataType: "text",
                 success: function (r) {
                     $("#imgCapture").css("visibility", "visible");
                     $("#imgCapture").attr("src", r);
-                    
+                    $('#hdnSession').attr("value", r);
+
                 },
                 failure: function (response) {
                     alert(response.d);
@@ -33,7 +34,7 @@ $(function () {
 function Capture() {
     webcam.capture();
     displayToastr();
-    $("#SubmitBtn").removeAttr("disabled","disabled")
+    $("#SubmitBtn").removeAttr("disabled", "disabled")
 }
 function displayToastr() {
     toastr.success('Image Captured');
@@ -59,7 +60,8 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#txtVisitorId').attr('readonly', true);
-  //  $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
+    //  $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
+    $('#txtValidUpto').attr('readonly', true)
 });
 
 //function printdiv(printpage) {
@@ -90,8 +92,8 @@ function printdiv(printpage) {
 //});
 $(document).ready(function () {
     var a = document.getElementById("imgCapture").src;
-    if(a==""){
-   // if ($("#imgCapture").src() == "") {
+    if (a == "") {
+        // if ($("#imgCapture").src() == "") {
         toastr.warning("Please Capture Photo first!!")
         $("#SubmitBtn").attr("disabled", "disabled")
 
@@ -100,7 +102,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $('#txtInTime').datetimepicker({
-        autoclose:true,
+        autoclose: true,
         startDate: new Date()
     });
 
@@ -115,7 +117,7 @@ $(document).ready(function () {
             toastr.warning("Validity date  must be greater than InTime.");
             $('#txtValidUpto').val("");
         }
-        
+
     });
 });
 
@@ -160,7 +162,7 @@ $(document).ready(function () {
             });
         }
         var dd = ValidityDate.getDate();
-        var mm = ValidityDate.getMonth()+1;
+        var mm = ValidityDate.getMonth() + 1;
         var yyyy = ValidityDate.getFullYear();
 
         if (dd < 10) {
@@ -171,16 +173,16 @@ $(document).ready(function () {
             mm = '0' + mm;
         }
 
-        ValidityDate = dd + '-' + mm + '-' + yyyy+' 23:59';
+        ValidityDate = dd + '-' + mm + '-' + yyyy + ' 23:59';
         $('#txtValidUpto').val(ValidityDate);
-        
+
         //if (Date.parse(timeIn) >= Date.parse(ValidityDate))
         //{
         //    toastr.warning("Validity date  must be greater than InTime.");
         //    $('#txtValidUpto').val(ValidityDate);
         //    //$('#txtValidUpto').val("");
         //}
-        });
+    });
 });
 
 //function Check()
@@ -196,7 +198,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#txtGovIdNo").change(function () {
         var govIdNo = $('#txtGovIdNo').val();
-        
+
 
     });
 });
@@ -207,18 +209,18 @@ function returnPass() {
 
 
     var visitorId = $("#hidReturnPass").val();
-    $.ajax({  
-        type: "POST",  
+    $.ajax({
+        type: "POST",
         url: "/Visitor/ReturnPass?id=" + visitorId,
-        dataType: "text"  ,
-        success: function(data) {  
+        dataType: "text",
+        success: function (data) {
             $('#confirmModal').modal('toggle');
             location.reload();
-         },  
-    error: function() {  
-        alert("Error occured!!")  
-    }  
-});  
+        },
+        error: function () {
+            alert("Error occured!!")
+        }
+    });
 }
 $('#txtGovIdNo').keyup(function (event) {
     var govId = $('#txtGovIdNo').val();
@@ -248,10 +250,18 @@ $('#txtGovIdNo').keyup(function (event) {
                 $('#txtName').val("");
                 $('#txtMobile').val("");
                 $('#txtEmail').val("");
-                $('#ddlGovId').val(0);
+                //$('#ddlGovId').val(0);
                 $('#txtDOB').val("");
-                $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
-                $("#SubmitBtn").attr("disabled", "disabled")
+
+                var sessionValue = $("#hdnSession").val();
+                // $('#hdnSession').attr("value", sessionValue);
+                if (sessionValue != '') {
+                    $('#imgCapture').attr("src", sessionValue);
+                }
+                else {
+                    $('#imgCapture').attr("src", "../VisitorImage/ProfileIcon.png");
+                    $("#SubmitBtn").attr("disabled", "disabled")
+                }
                 $('#txtImagePath').val("");
                 $('#txtAssetId').val("");
                 $('#txtLocation').val("");
@@ -259,11 +269,11 @@ $('#txtGovIdNo').keyup(function (event) {
                 $('#txtSubLocation').val("");
                 $('#txtOfficeLocation').val("");
                 $('#txtValidUpto').val("");
+                $('#txtValidUpto').attr('readonly', true)
                 $('#txtRemark').val("");
-
-                $('#ddlGate').val(0);
+                $('#ddlGate').val('Gate 01 - RECEPTION');
                 $('#ddlDays').val(0);
-                $('#ddlPurpose').val(0);
+                $('#ddlPurpose').val('000');
 
             }
         }

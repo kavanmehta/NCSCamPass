@@ -36,6 +36,7 @@ namespace ReceptionProcam.EntityModel
         public string OfficeLocation { get; set; }
         public string Gate { get; set; }
         public string Purpose { get; set; }
+        public string PurposeText { get; set; }
         public string TimeIn { get; set; }
         public string ValidUpto { get; set; }
         public string Remark { get; set; }

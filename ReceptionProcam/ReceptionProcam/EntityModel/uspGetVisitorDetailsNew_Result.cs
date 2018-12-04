@@ -36,10 +36,11 @@ namespace ReceptionProcam.EntityModel
         public string OfficeLocation { get; set; }
         public string Gate { get; set; }
         public string Purpose { get; set; }
+        public string PurposeText { get; set; }
         public string TimeIn { get; set; }
         public string ValidUpto { get; set; }
         public string Remark { get; set; }
-        public Nullable<bool> IsPassReturned { get; set; }
+        public bool IsPassReturned { get; set; }
         public string VCreatedBy { get; set; }
         public string VCreatedDate { get; set; }
         public string VModifiedBy { get; set; }
