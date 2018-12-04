@@ -1,4 +1,10 @@
 ﻿@model ReceptionProcam.Models.clsVisitor
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#hdnSession').attr("value", '@TempData["CapturedImageTemp"]');
+    });
+</script>
 @section scripts
 {
 
@@ -10,6 +16,11 @@
 
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "--Please Select Gate--",
+        Value = "001",
+    });
     listItems.Add(new SelectListItem
          {
              Text = "Gate 01 - RECEPTION",
@@ -74,7 +85,7 @@
     List<SelectListItem> listGovId = new List<SelectListItem>();
     listGovId.Add(new SelectListItem
     {
-        Text = "--Please select Gov Id Proof--",
+        Text = "--Please select Id Proof--",
         Value = "0",
         Selected = true
     });
@@ -105,233 +116,218 @@
     listPurpose.Add(new SelectListItem
     {
         Text = "--Please select Purpose--",
-        Value = "0",
+        Value = "000",
         Selected = true
     });
     listPurpose.Add(new SelectListItem
          {
              Text = "Interview",
-             Value = "1",
+             Value = "001",
          });
     listPurpose.Add(new SelectListItem
          {
              Text = "Meeting",
-             Value = "2"
+             Value = "002"
          });
     listPurpose.Add(new SelectListItem
          {
              Text = "Other",
-             Value = "3"
+             Value = "003"
          });
 }
 
 
 
-@if (TempData["message"] != null)
+
+
+
+
+@using (Html.BeginForm("CreateVisitor", "Visitor", new { }))
 {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            toastr.success(@TempData["message"])
-        })
-    </script>
-}
-    @if (TempData["Success"] != null)
-    {
-        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
-    }
-    @*<script type="text/javascript">
-        document.getElementById('SubmitBtn').onclick = function () {
-            if ('@TempData["Success"]' != null) {
-                toastr.success(@TempData["Success"]);
-            }
-        };
-
-        //});
-    </script>*@
-   
-
-    @using (Html.BeginForm("CreateVisitor","Visitor", new { }))
-    {
-        @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
     <!--Capture Camera test-->
 
 
     		<!--begin::Portlet-->
-        <div class="m-portlet">
-            <div class="m-portlet__head">
-                <div class="m-portlet__head-caption">
-                    <div class="m-portlet__head-title">
-                        <span class="m-portlet__head-icon m--hide">
-                            <i class="la la-gear"></i>
-                        </span>
-                        <h3 class="m-portlet__head-text">
-                            New Visitor
-                        </h3>
-                    </div>
+    <div class="m-portlet">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon m--hide">
+                        <i class="la la-gear"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
+                        New Visitor
+                    </h3>
+                </div>
 
+            </div>
+        </div>
+        <!--begin::Form-->
+        <div style="visibility:hidden">
+            @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { autocomplete = "off", Id = "txtImagePath" } })
+        </div>
+        <div class="m-portlet__body">
+            <div class="form-group m-form__group row">
+                <div id="webcam" class="col-lg-2" style="padding:10px">
+
+                </div>
+                <div class="col-lg-2 offset-2 camDivsty" style="padding:10px">
+                    <input type="button" class="btn btn-primary" value="Capture" onclick="Capture();" />
+                </div>
+                <div class="col-lg-2"><img id="imgCapture" style="height:155px;width:200px; padding:10px" /></div>
+                <input type="hidden" id="hdnSession" value="@TempData["CapturedImageTemp"]" />
+            </div>
+            <br>
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.DropDownListFor(m => m.GovId, listGovId, new { Id = "ddlGovId", autocomplete = "off", @class = "form-control m-input" })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
+                </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { Id = "txtGovIdNo", autocomplete = "off", maxlength = 15, @class = "form-control m-input", @placeholder = "Identification Id", @style = "text-transform:uppercase" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
                 </div>
             </div>
-            <!--begin::Form-->
-            <div style="visibility:hidden">
-                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { autocomplete = "off", Id = "txtImagePath" } })
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.VisitorId, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.VisitorId, new { htmlAttributes = new { @Id = "txtVisitorId", @class = "form-control m-input" } })
+                </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off", Id = "txtName", maxlength = 100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
+                </div>
             </div>
-            <div class="m-portlet__body">
-                <div class="form-group m-form__group row">
-                    <div id="webcam" class="col-lg-2" style="padding:10px">
-                        
-                    </div>
-                    <div class="col-lg-2 offset-2 camDivsty" style="padding:10px">
-                        <input type="button" class="btn btn-primary" value="Capture" onclick="Capture();" />
-                    </div>
-                    <div class="col-lg-2"><img id="imgCapture" style="height:155px;width:200px; padding:10px" /></div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12, Id = "txtMobile", @class = "form-control m-input", @placeholder = "Mobile No" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })</p>
                 </div>
-                <br>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { Id="txtGovIdNo",autocomplete = "off", maxlength = 15, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                    </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, Id = "txtEmail", @class = "form-control m-input", @placeholder = "Email" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
                 </div>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.VisitorId, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.VisitorId, new { htmlAttributes = new { @Id = "txtVisitorId", @class = "form-control m-input" } })
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off",Id="txtName", maxlength=100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
-                    </div>
+            </div>
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @Id = "txtDOB", autocomplete = "off", @class = "form-control m-input", @placeholder = "Date of Birth" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })</p>
                 </div>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12,Id="txtMobile", @class = "form-control m-input", @placeholder = "Mobile No" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30,Id="txtEmail", @class = "form-control m-input", @placeholder = "Email" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
-                    </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @Id = "txtLocation", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Location" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })</p>
                 </div>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.DropDownListFor(m => m.GovId, listGovId, new { Id = "ddlGovId",autocomplete = "off", @class = "form-control m-input" })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.DOB, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @Id = "txtDOB", autocomplete = "off" ,@class = "form-control m-input", @placeholder = "Date of Birth" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })</p>
-                    </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.AssetId, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.AssetId, new { htmlAttributes = new { @Id = "txtAssetId", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Asset Id" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.AssetId, "", new { @class = "text-danger" })</p>
                 </div>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.AssetId, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.AssetId, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Asset Id" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.AssetId, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Location, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Location" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })</p>
-                    </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.ToMeet, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.EditorFor(model => model.ToMeet, new { htmlAttributes = new { @Id = "txtToMeet", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "To Meet" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.ToMeet, "", new { @class = "text-danger" })</p>
                 </div>
-                <div class="form-group m-form__group row">
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.OfficeLocation, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.OfficeLocation, new { htmlAttributes = new { @Id = "txtOfficeLocation", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office Location" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.OfficeLocation, "", new { @class = "text-danger" })</p>
+                </div>
+
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.SubLocation, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.SubLocation, new { htmlAttributes = new { @Id = "txtSubLocation", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office sub location" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.SubLocation, "", new { @class = "text-danger" })</p>
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
+                    @Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { @Id = "ddlGate", autocomplete = "off", @class = "form-control m-input" })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Gate, "", new { @class = "text-danger" })</p>
+                </div>
+
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.DropDownListFor(m => m.Purpose, listPurpose, new { @Id = "ddlPurpose", autocomplete = "off", @class = "form-control m-input" })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
+                </div>
+            </div>
+            @*<div class="form-group m-form__group row">
 
                     <div class="col-lg-6">
-                        @Html.LabelFor(model => model.ToMeet, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.ToMeet, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "To Meet" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.ToMeet, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.SubLocation, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.SubLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office sub location" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.SubLocation, "", new { @class = "text-danger" })</p>
-                    </div>
-                </div>
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.OfficeLocation, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.OfficeLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office Location" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.OfficeLocation, "", new { @class = "text-danger" })</p>
-                    </div>
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
-                        @Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { autocomplete = "off", @class = "form-control m-input" })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Gate, "", new { @class = "text-danger" })</p>
-                    </div>
-                </div>
-                @*<div class="form-group m-form__group row">
-
-                        <div class="col-lg-6">
-                            @Html.LabelFor(model => model.TimeIn, htmlAttributes: new { })
-                            @Html.EditorFor(model => model.TimeIn, new { htmlAttributes = new { autocomplete = "off", @Id = "txtInTime", @class = "form-control m-input", @placeholder = "In Time" } })
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.TimeIn, "", new { @class = "text-danger" })</p>
-                        </div><div class="col-lg-6">
-                            @Html.LabelFor(model => model.ValidUpto, htmlAttributes: new { })
-                            @Html.EditorFor(model => model.ValidUpto, new { htmlAttributes = new { autocomplete = "off", @Id = "txtValidUpto", @class = "form-control m-input", @placeholder = "Valid Up to" } })
-                            <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
-                        </div>
-                    </div>*@
-                @* @Model.TimeIn=@System.DateTime.Now.ToString("dd-mm-yyyy hh:mm");*@
-                @Html.HiddenFor(model => model.TimeIn, htmlAttributes: new { @Id = "hfTimeIn" })
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.Label("Validity Time", htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.DropDownList("Days", listDays, new { @Id = "ddlDays", autocomplete = "off", @class = "form-control m-input" })
-                        <p class="help-block">@Html.ValidationMessage("Please select Validity Days", "", new { @class = "text-danger" })</p>
+                        @Html.LabelFor(model => model.TimeIn, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.TimeIn, new { htmlAttributes = new { autocomplete = "off", @Id = "txtInTime", @class = "form-control m-input", @placeholder = "In Time" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.TimeIn, "", new { @class = "text-danger" })</p>
                     </div><div class="col-lg-6">
                         @Html.LabelFor(model => model.ValidUpto, htmlAttributes: new { })
                         @Html.EditorFor(model => model.ValidUpto, new { htmlAttributes = new { autocomplete = "off", @Id = "txtValidUpto", @class = "form-control m-input", @placeholder = "Valid Up to" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
                     </div>
+                </div>*@
+            @* @Model.TimeIn=@System.DateTime.Now.ToString("dd-mm-yyyy hh:mm");*@
+            @Html.HiddenFor(model => model.TimeIn, htmlAttributes: new { @Id = "hfTimeIn" })
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.Label("Validity Time", htmlAttributes: new { })<span class="text-danger">*</span>
+                    @Html.DropDownList("Days", listDays, new { @Id = "ddlDays", autocomplete = "off", @class = "form-control m-input" })
+                    <p class="help-block">@Html.ValidationMessage("Please select Validity Days", "", new { @class = "text-danger" })</p>
+                </div><div class="col-lg-6">
+                    @Html.LabelFor(model => model.ValidUpto, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.ValidUpto, new { htmlAttributes = new { autocomplete = "off", @Id = "txtValidUpto", @class = "form-control m-input", @placeholder = "Valid Up to" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
                 </div>
+            </div>
 
 
-                <div class="form-group m-form__group row">
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.DropDownListFor(m => m.Purpose, listPurpose,  new { autocomplete = "off", @class = "form-control m-input" })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
-                    </div>
-                    @*<div class="col-lg-6">
+            <div class="form-group m-form__group row">
+
+                @*<div class="col-lg-6">
                         @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
                         @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { @Id = "txtPurpose", maxlength = 50, autocomplete = "off", @class = "form-control m-input", @placeholder = "Purpose" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
                     </div>*@
 
-                    <div class="col-lg-6">
-                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { })
-                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Remark" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Remark, "", new { @class = "text-danger" })</p>
-                    </div>
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.Remark, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @Id = "txtRemark", autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Remark" } })
+                    <p class="help-block">@Html.ValidationMessageFor(m => m.Remark, "", new { @class = "text-danger" })</p>
                 </div>
             </div>
-            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-                <div class="m-form__actions m-form__actions--solid">
-                    <div class="row">
-                        <div class="col-lg-4"></div>
-                        <div class="col-lg-8">
-                            <button type="submit" class="btn btn-primary" id="SubmitBtn">
-                                Submit
-                            </button>
-                            <button type="reset" class="btn btn-secondary" onclick="@("window.location.href='" + @Url.Action("VisitorDetails", "Visitor") + "'");">
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br />
         </div>
+        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+            <div class="m-form__actions m-form__actions--solid">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-8">
+                        <button type="submit" class="btn btn-primary" id="SubmitBtn">
+                            Submit
+                        </button>
+                        <button type="reset" class="btn btn-secondary" onclick="@("window.location.href='" + @Url.Action("VisitorDetails", "Visitor") + "'");">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
 
-    }
+}
 

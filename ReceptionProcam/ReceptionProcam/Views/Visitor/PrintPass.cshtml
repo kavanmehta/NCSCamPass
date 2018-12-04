@@ -1,8 +1,16 @@
 ﻿@model ReceptionProcam.Models.clsVisitor
 <script src="~/Scripts/visitor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@TempData["SuccessAdd"]' == "Visitor added Successfully & Mail Sent to concern person!") {
+            toastr.success('Visitor added Successfully & Mail Sent to concern person!');
+        }
+    });
+</script>
 
 
-@using (Html.BeginForm(new {  role = "form" }))
+
+@using (Html.BeginForm(new { role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,7 +31,7 @@
         </div>
         <!--begin::Form-->
 
-        <div class="m-portlet__body" >
+        <div class="m-portlet__body">
             <div id="myPartialView">
                 @{Html.RenderPartial("Par_PrintVisitor", Model);}
             </div>
@@ -35,7 +43,7 @@
             </div>
         </div>
     </div>
-    
+
 }
 
 

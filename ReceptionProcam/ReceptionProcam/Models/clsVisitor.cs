@@ -81,7 +81,10 @@ namespace ReceptionProcam.Models
 
 
         [DisplayName("Valid Upto")]
+        [Required(ErrorMessage = "Please enter out time")] 
         public string ValidUpto { get; set; }
+
+        public string PurposeText { get; set; } 
 
         [DisplayName("Remarks")]
         public string Remark { get; set; }
@@ -91,6 +94,7 @@ namespace ReceptionProcam.Models
         public string ModifiedBy { get; set; }
         public string ModifiedDate { get; set; }
 
+        public bool IsPassReturned { get; set; }
 
     }
 

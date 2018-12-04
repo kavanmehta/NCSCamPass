@@ -6,6 +6,18 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var x = '@Html.Raw(Model.IsPassReturned)';
+
+        if (x == 'True') {
+            $(".EditDiv *").attr("disabled", "disabled");
+            //  $(".EditDiv").prop("disabled", true);
+        }
+    });
+</script>
+
 <style>
     .img-responsiveDiv {
         width: 30%;
@@ -145,103 +157,103 @@
             </div>
         </div>
         <!--begin::Form-->
-
-        <div class="m-portlet__body">
-            <div class="form-group m-form__group row img-responsiveDiv">
-                <img class="img-responsive" src="@Url.Content(Model.ImagePath)" alt="Image" style="width:100%; height:auto" />
-                @Html.HiddenFor(model => model.ImagePath)
-                @*<div id="webcam" class="col-lg-2">
+        <div class="EditDiv">
+            <div class="m-portlet__body">
+                <div class="form-group m-form__group row">
+                    <div id="webcam" class="col-lg-2" style="padding:10px">
 
                     </div>
-                    <div class="col-lg-2 offset-2 camDivsty">
+                    <div class="col-lg-2 offset-2 camDivsty" style="padding:10px">
                         <input type="button" class="btn btn-primary" value="Capture" onclick="Capture();" />
-                    </div>*@
-            </div>
-            <br>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { @readonly = "readonly", Id = "txtGovIdNo", autocomplete = "off", maxlength = 15, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-2"><img id="imgCapture" src="@Url.Content(Model.ImagePath)" style="height:155px;width:200px; padding:10px" /></div>
                 </div>
-                <div class="col-lg-6">
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.VisitorId, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.VisitorId, new { htmlAttributes = new { @Id = "txtVisitorId", @class = "form-control m-input" } })
-                </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off", maxlength = 100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12, @class = "form-control m-input", @placeholder = "Mobile No" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })</p>
-                </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, @class = "form-control m-input", @placeholder = "Email" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
-                    @Html.DropDownListFor(m => m.GovId, listGate, "-- Select Gov Id Proof --", new { @class = "form-control m-input" })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
-                </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { autocomplete = "off", maxlength = 20, @Id = "txtDOB", @class = "form-control m-input" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })</p>
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.AssetId, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.AssetId, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Asset Id" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.AssetId, "", new { @class = "text-danger" })</p>
-                </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Location, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "From" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })</p>
-                </div>
-            </div>
-            <div class="form-group m-form__group row">
 
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.ToMeet, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.EditorFor(model => model.ToMeet, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "To Meet" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.ToMeet, "", new { @class = "text-danger" })</p>
+                <br>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.GovIdNo, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.GovIdNo, new { htmlAttributes = new { @readonly = "readonly", Id = "txtGovIdNo", autocomplete = "off", maxlength = 15, @class = "form-control m-input", @placeholder = "Gov Identification Id", @style = "text-transform:uppercase" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.GovIdNo, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.SubLocation, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.SubLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office sub location" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.SubLocation, "", new { @class = "text-danger" })</p>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.VisitorId, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.VisitorId, new { htmlAttributes = new { @Id = "txtVisitorId", @class = "form-control m-input" } })
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { autocomplete = "off", maxlength = 100, @class = "form-control m-input", @placeholder = "Name", @style = "text-transform:uppercase" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.OfficeLocation, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.OfficeLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office Location" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.OfficeLocation, "", new { @class = "text-danger" })</p>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { autocomplete = "off", maxlength = 12, @class = "form-control m-input", @placeholder = "Mobile No" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, @class = "form-control m-input", @placeholder = "Email" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
-                    @Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { @class = "form-control m-input" })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Gate, "", new { @class = "text-danger" })</p>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
+                        @Html.DropDownListFor(m => m.GovId, listGate, "-- Select Gov Id Proof --", new { @class = "form-control m-input" })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.DOB, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { autocomplete = "off", maxlength = 20, @Id = "txtDOB", @class = "form-control m-input" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
-            </div>
-            @*<div class="form-group m-form__group row">
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.AssetId, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.AssetId, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Asset Id" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.AssetId, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Location, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "From" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })</p>
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.ToMeet, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.ToMeet, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "To Meet" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.ToMeet, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.SubLocation, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.SubLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office sub location" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.SubLocation, "", new { @class = "text-danger" })</p>
+                    </div>
+                </div>
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.OfficeLocation, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.OfficeLocation, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Office Location" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.OfficeLocation, "", new { @class = "text-danger" })</p>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
+                        @Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { @class = "form-control m-input" })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Gate, "", new { @class = "text-danger" })</p>
+                    </div>
+                </div>
+                @*<div class="form-group m-form__group row">
 
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.TimeIn, htmlAttributes: new { })
@@ -253,49 +265,51 @@
                         <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
                     </div>
                 </div>*@
-            @Html.HiddenFor(model => model.TimeIn, htmlAttributes: new { @Id = "hfTimeIn" })
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.Label("Validity Time", htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownList("Days", listDays, new { @Id = "ddlDays", autocomplete = "off", @class = "form-control m-input" })
-                    <p class="help-block">@Html.ValidationMessage("Please select Validity Days", "", new { @class = "text-danger" })</p>
-                </div><div class="col-lg-6">
-                    @Html.LabelFor(model => model.ValidUpto, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.ValidUpto, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, @Id = "txtValidUpto", @class = "form-control m-input", @placeholder = "Valid Up to" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
+                @Html.HiddenFor(model => model.TimeIn, htmlAttributes: new { @Id = "hfTimeIn" })
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.Label("Validity Time", htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.DropDownList("Days", listDays, new { @Id = "ddlDays", autocomplete = "off", @class = "form-control m-input" })
+                        <p class="help-block">@Html.ValidationMessage("Please select Validity Days", "", new { @class = "text-danger" })</p>
+                    </div><div class="col-lg-6">
+                        @Html.LabelFor(model => model.ValidUpto, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.ValidUpto, new { htmlAttributes = new { autocomplete = "off", maxlength = 30, @Id = "txtValidUpto", @class = "form-control m-input", @placeholder = "Valid Up to" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.ValidUpto, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownListFor(m => m.Purpose, listPurpose, new { autocomplete = "off", @class = "form-control m-input" })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
-                </div>
-                @*<div class="col-lg-6">
+                <div class="form-group m-form__group row">
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.DropDownListFor(m => m.Purpose, listPurpose, new { autocomplete = "off", @class = "form-control m-input" })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
+                    </div>
+                    @*<div class="col-lg-6">
                         @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
                         @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Purpose" } })
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
                     </div>*@
 
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.Remark, htmlAttributes: new { })
-                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control m-input", maxlength = 50, @placeholder = "Remark" } })
-                    <p class="help-block">@Html.ValidationMessageFor(m => m.Remark, "", new { @class = "text-danger" })</p>
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control m-input", maxlength = 50, @placeholder = "Remark" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Remark, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" style=" padding-left: 32%;">
-            <div class="m-form__actions m-form__actions--solid">
-                <div class="row">
 
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                    &nbsp;&nbsp;
-                    <button type="reset" class="btn btn-secondary" onclick="@("window.location.href='" + @Url.Action("VisitorDetails", "Visitor") + "'");">
-                        Cancel
-                    </button>
+            <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit" style=" padding-left: 32%;">
+                <div class="m-form__actions m-form__actions--solid">
+                    <div class="row">
+
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                        &nbsp;&nbsp;
+                        <button type="reset" class="btn btn-secondary" onclick="@("window.location.href='" + @Url.Action("VisitorDetails", "Visitor") + "'");">
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
