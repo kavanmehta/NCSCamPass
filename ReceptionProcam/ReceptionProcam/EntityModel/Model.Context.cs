@@ -34,6 +34,21 @@ namespace ReceptionProcam.EntityModel
         public virtual DbSet<tblVisitorPersonalData> tblVisitorPersonalDatas { get; set; }
         public virtual DbSet<tblVisitorVisitDetail> tblVisitorVisitDetails { get; set; }
     
+        public virtual ObjectResult<uspGetAllGate_Result> uspGetAllGate()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllGate_Result>("uspGetAllGate");
+        }
+    
+        public virtual ObjectResult<uspGetAllIdentity_Result> uspGetAllIdentity()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllIdentity_Result>("uspGetAllIdentity");
+        }
+    
+        public virtual ObjectResult<uspGetAllPurpose_Result> uspGetAllPurpose()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllPurpose_Result>("uspGetAllPurpose");
+        }
+    
         public virtual ObjectResult<uspGetVisitorDetails_Result> uspGetVisitorDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetVisitorDetails_Result>("uspGetVisitorDetails");

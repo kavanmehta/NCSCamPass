@@ -163,7 +163,7 @@ namespace ReceptionProcam.Controllers
                         }
                         return RedirectToAction("VisitorDetails", "Visitor");
                     }
-                    catch(Exception ex)
+                    catch
                     {
                         TempData["ErrorUpload"] = "Check file format";
                         return View();

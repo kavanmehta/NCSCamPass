@@ -97,12 +97,15 @@
           <Property Name="TimeIn" Type="nvarchar" MaxLength="50" />
           <Property Name="ValidUpto" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsPassReturned" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsPassReturned" Type="bit" Nullable="false" />
         </EntityType>
+        <Function Name="uspGetAllGate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspGetAllIdentity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspGetAllPurpose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetailsByGovId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="VisType" Type="nvarchar" Mode="In" />
@@ -266,11 +269,11 @@
           <Property Name="TimeIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ValidUpto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsPassReturned" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPassReturned" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBNCSVisitorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblGateMasters" EntityType="Self.tblGateMaster" />
@@ -279,6 +282,9 @@
           <EntitySet Name="tblVisitors" EntityType="Self.tblVisitor" />
           <EntitySet Name="tblVisitorPersonalDatas" EntityType="Self.tblVisitorPersonalData" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetail" />
+          <FunctionImport Name="uspGetAllGate" ReturnType="Collection(DBNCSVisitorModel.uspGetAllGate_Result)" />
+          <FunctionImport Name="uspGetAllIdentity" ReturnType="Collection(DBNCSVisitorModel.uspGetAllIdentity_Result)" />
+          <FunctionImport Name="uspGetAllPurpose" ReturnType="Collection(DBNCSVisitorModel.uspGetAllPurpose_Result)" />
           <FunctionImport Name="uspGetVisitorDetails" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetails_Result)" />
           <FunctionImport Name="uspGetVisitorDetailsByGovId" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsByGovId_Result)">
             <Parameter Name="VisType" Mode="In" Type="String" />
@@ -338,6 +344,18 @@
             <Parameter Name="CreatedDate" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="uspGetAllGate_Result">
+          <Property Type="String" Name="GateName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Gate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="uspGetAllIdentity_Result">
+          <Property Type="String" Name="ProofName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="GovId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="uspGetAllPurpose_Result">
+          <Property Type="String" Name="PurposeText" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Purpose" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="uspGetVisitorDetails_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="EmpId" Nullable="true" MaxLength="20" />
@@ -413,7 +431,7 @@
           <Property Type="String" Name="TimeIn" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsPassReturned" Nullable="false" />
+          <Property Type="Boolean" Name="IsPassReturned" Nullable="true" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="VCreatedDate" Nullable="true" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="50" />
@@ -447,7 +465,7 @@
           <Property Type="String" Name="TimeIn" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="ValidUpto" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Remark" Nullable="true" MaxLength="50" />
-          <Property Type="Boolean" Name="IsPassReturned" Nullable="false" />
+          <Property Type="Boolean" Name="IsPassReturned" Nullable="true" />
           <Property Type="String" Name="VCreatedBy" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="VCreatedDate" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="VModifiedBy" Nullable="true" MaxLength="20" />
@@ -559,14 +577,38 @@
                 <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="ValidUpto" ColumnName="ValidUpto" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="IsPassReturned" ColumnName="IsPassReturned" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspGetAllGate" FunctionName="DBNCSVisitorModel.Store.uspGetAllGate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllGate_Result">
+                <ScalarProperty Name="GateName" ColumnName="GateName" />
+                <ScalarProperty Name="Gate" ColumnName="Gate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetAllIdentity" FunctionName="DBNCSVisitorModel.Store.uspGetAllIdentity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllIdentity_Result">
+                <ScalarProperty Name="ProofName" ColumnName="ProofName" />
+                <ScalarProperty Name="GovId" ColumnName="GovId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetAllPurpose" FunctionName="DBNCSVisitorModel.Store.uspGetAllPurpose">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllPurpose_Result">
+                <ScalarProperty Name="PurposeText" ColumnName="PurposeText" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspGetVisitorDetails" FunctionName="DBNCSVisitorModel.Store.uspGetVisitorDetails">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetVisitorDetails_Result">

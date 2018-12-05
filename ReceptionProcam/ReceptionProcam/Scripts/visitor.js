@@ -271,9 +271,9 @@ $('#txtGovIdNo').keyup(function (event) {
                 $('#txtValidUpto').val("");
                 $('#txtValidUpto').attr('readonly', true)
                 $('#txtRemark').val("");
-                $('#ddlGate').val('Gate 01 - RECEPTION');
+                $('#ddlGate').val(1);
                 $('#ddlDays').val(0);
-                $('#ddlPurpose').val('000');
+                $('#ddlPurpose').val(1);
 
             }
         }

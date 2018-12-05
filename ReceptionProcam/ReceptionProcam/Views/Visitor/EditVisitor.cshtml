@@ -113,23 +113,23 @@
     listPurpose.Add(new SelectListItem
     {
         Text = "--Please select Purpose--",
-        Value = "0",
+        Value = "000",
         Selected = true
     });
     listPurpose.Add(new SelectListItem
          {
              Text = "Interview",
-             Value = "1",
+             Value = "001",
          });
     listPurpose.Add(new SelectListItem
          {
              Text = "Meeting",
-             Value = "2"
+             Value = "002"
          });
     listPurpose.Add(new SelectListItem
          {
              Text = "Other",
-             Value = "3"
+             Value = "003"
          });
 }
 @if (TempData["Success"] != null)
@@ -282,14 +282,9 @@
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
                         @Html.DropDownListFor(m => m.Purpose, listPurpose, new { autocomplete = "off", @class = "form-control m-input" })
+                        
                         <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
                     </div>
-                    @*<div class="col-lg-6">
-                        @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
-                        @Html.EditorFor(model => model.Purpose, new { htmlAttributes = new { autocomplete = "off", maxlength = 50, @class = "form-control m-input", @placeholder = "Purpose" } })
-                        <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
-                    </div>*@
-
                     <div class="col-lg-6">
                         @Html.LabelFor(model => model.Remark, htmlAttributes: new { })
                         @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control m-input", maxlength = 50, @placeholder = "Remark" } })

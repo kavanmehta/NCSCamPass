@@ -184,7 +184,7 @@
 
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.GovId, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownListFor(m => m.GovId, listGovId, new { Id = "ddlGovId", autocomplete = "off", @class = "form-control m-input" })
+                    @Html.DropDownListFor(m => m.GovId, ViewBag.AllIdentity as SelectList, new { Id = "ddlGovId", autocomplete = "off", @class = "form-control m-input" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.GovId, "", new { @class = "text-danger" })</p>
                 </div>
                 <div class="col-lg-6">
@@ -259,13 +259,15 @@
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.Gate, htmlAttributes: new { })<span class="text-danger">*</span>
                     @*@Html.EditorFor(model => model.Gate, new { htmlAttributes = new { @class = "form-control m-input", @placeholder = "Gate" } })*@
-                    @Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { @Id = "ddlGate", autocomplete = "off", @class = "form-control m-input" })
+                    @*@Html.DropDownListFor(m => m.Gate, listItems, "-- Select Gate Number --", new { @Id = "ddlGate", autocomplete = "off", @class = "form-control m-input" })*@
+                    @Html.DropDownListFor(m => m.Gate, ViewBag.AllGate as SelectList, new { @class = "form-control m-input", Id = "ddlGate" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.Gate, "", new { @class = "text-danger" })</p>
                 </div>
 
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.Purpose, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownListFor(m => m.Purpose, listPurpose, new { @Id = "ddlPurpose", autocomplete = "off", @class = "form-control m-input" })
+                    @*@Html.DropDownListFor(m => m.Purpose, listPurpose, new { @Id = "ddlPurpose", autocomplete = "off", @class = "form-control m-input" })*@
+                    @Html.DropDownListFor(m => m.Purpose, ViewBag.AllPurpose as SelectList, new { @class = "form-control m-input", Id = "ddlPurpose" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.Purpose, "", new { @class = "text-danger" })</p>
                 </div>
             </div>
