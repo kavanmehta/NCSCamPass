@@ -11,6 +11,7 @@ using System.Data.Entity.Validation;
 using System.Net.Mail;
 using System.Data.Entity.Core.Objects;
 
+
 namespace ReceptionProcam.Controllers
 {
     public class VisitorController : Controller
@@ -181,17 +182,19 @@ namespace ReceptionProcam.Controllers
         private void SendEmail(clsVisitor objVisitor)
         {
             System.Net.Mail.MailMessage mail = new MailMessage();
+            var fromAddress = "kavan.mehta@ncs.com.sg";
+            const string fromPassword = "dec@2018";
             mail.To.Add("suraj.mane@ncs.com.sg");
             mail.From = new MailAddress("kavan.mehta@ncs.com.sg");
             mail.Subject = objVisitor.VisitorId + " - " + "Coming to meet you";
-            string Body = "Visitor Name : " + objVisitor.Name + "<br/>" + "Visitor's Purpose : " + objVisitor.Purpose;
+            string Body = "Visitor Name :" + objVisitor.Name + "<br/>" + "Visitor's Purpose : " + objVisitor.Purpose + "<br/>" + "Visitor From :" + objVisitor.OfficeLocation;
             mail.Body = Body;
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "imap-mail.outlook.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("kavan.mehta@ncs.com.sg", "aug@2018"); // Enter seders User name and password  
+            smtp.Credentials = new System.Net.NetworkCredential(fromAddress, fromPassword); // Enter seders User name and password  
             smtp.EnableSsl = true;
             smtp.Send(mail);
             //return RedirectToAction("PrintPass", new { id = dbVis.Id }); 
