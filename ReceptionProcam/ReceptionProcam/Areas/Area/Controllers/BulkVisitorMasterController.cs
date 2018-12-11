@@ -163,7 +163,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
                     }
                     return RedirectToAction("UploadTemplate", "BulkVisitorMaster");
                 }
-                catch (Exception ex)
+                catch 
                 {
                     TempData["ErrorUpload"] = "Check file format";
                     return View();

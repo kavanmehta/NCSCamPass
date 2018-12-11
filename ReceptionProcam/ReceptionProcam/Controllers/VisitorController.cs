@@ -36,6 +36,9 @@ namespace ReceptionProcam.Controllers
         {
             try
             {
+                getAllPurpose();
+                getAllIdentity();
+                getAllGate();
                 Session["CapturedImage"] = "";
                 clsVisitor personal = new clsVisitor();
                 var lastVisitorPassNumber = objVisEnti.tblVisitorVisitDetails.OrderByDescending(c => c.Id).FirstOrDefault();
@@ -220,7 +223,7 @@ namespace ReceptionProcam.Controllers
                 {
                     VisData.VisitorId = "NCSPUN" + Convert.ToString(date) + (Convert.ToInt32(lastVisitorPassNumber.Id) + 1);
                 }
-                clsVisitor VisDtls = new clsVisitor { Id = VisData.Id, VisitorId = Convert.ToString(VisData.VisitorId), Name = Convert.ToString(VisData.Name), DOB = Convert.ToString(VisData.DOB), Location = Convert.ToString(VisData.Location), ToMeet = Convert.ToString(VisData.ToMeet), SubLocation = Convert.ToString(VisData.SubLocation), AssetId = Convert.ToString(VisData.AssetId), MobileNo = Convert.ToString(VisData.MobileNo), Email = Convert.ToString(VisData.EmailId), ValidUpto = Convert.ToString(VisData.ValidUpto), OfficeLocation = Convert.ToString(VisData.OfficeLocation), Gate = Convert.ToString(VisData.Gate), Purpose = Convert.ToString(VisData.Purpose), TimeIn = Convert.ToString(VisData.TimeIn), Remark = Convert.ToString(VisData.Remark), ImagePath = Convert.ToString(VisData.ImagePath), CreatedBy = Convert.ToString(VisData.CreatedBy), CreatedDate = Convert.ToString(VisData.CreatedDate), ModifiedBy = Convert.ToString(VisData.ModifiedBy), ModifiedDate = Convert.ToString(VisData.ModifiedDate),GovIdNo=Convert.ToString(VisData.GovIdNo) ,GovId=Convert.ToString(VisData.GovId),EmpId=Convert.ToString(VisData.EmpId),IsPassReturned=VisData.IsPassReturned};
+                clsVisitor VisDtls = new clsVisitor { Id = VisData.Id, VisitorId = Convert.ToString(VisData.VisitorId), Name = Convert.ToString(VisData.Name), DOB = Convert.ToString(VisData.DOB), Location = Convert.ToString(VisData.Location), ToMeet = Convert.ToString(VisData.ToMeet), SubLocation = Convert.ToString(VisData.SubLocation), AssetId = Convert.ToString(VisData.AssetId), MobileNo = Convert.ToString(VisData.MobileNo), Email = Convert.ToString(VisData.EmailId), ValidUpto = Convert.ToString(VisData.ValidUpto), OfficeLocation = Convert.ToString(VisData.OfficeLocation), Gate = Convert.ToString(VisData.Gate), Purpose = Convert.ToString(VisData.Purpose), TimeIn = Convert.ToString(VisData.TimeIn), Remark = Convert.ToString(VisData.Remark), ImagePath = Convert.ToString(VisData.ImagePath), CreatedBy = Convert.ToString(VisData.CreatedBy), CreatedDate = Convert.ToString(VisData.CreatedDate), ModifiedBy = Convert.ToString(VisData.ModifiedBy), ModifiedDate = Convert.ToString(VisData.ModifiedDate),GovIdNo=Convert.ToString(VisData.GovIdNo) ,GovId=Convert.ToString(VisData.GovId),EmpId=Convert.ToString(VisData.EmpId),IsPassReturned=(bool)VisData.IsPassReturned};
                 Session["CapturedImage"] = VisDtls.ImagePath;
                 return View(VisDtls);
             }
@@ -411,6 +414,45 @@ namespace ReceptionProcam.Controllers
             else
             {
                 return false ;
+            }
+        }
+
+
+        [HttpGet]
+        public void getAllPurpose()
+        {
+            try
+            {
+                ViewBag.AllPurpose = new SelectList(objVisEnti.uspGetAllPurpose(),"Purpose","PurposeText",0);
+            }
+            catch
+            {
+
+            }
+        }
+        [HttpGet]
+        public void getAllIdentity()
+        {
+            try
+            {
+                ViewBag.AllIdentity = new SelectList(objVisEnti.uspGetAllIdentity(), "GovId", "ProofName", 0);
+            }
+            catch
+            {
+
+            }
+        }
+
+        [HttpGet]
+        public void getAllGate()
+        {
+            try
+            {
+                ViewBag.AllGate = new SelectList(objVisEnti.uspGetAllGate(), "Gate", "GateName", 0);
+            }
+            catch
+            {
+
             }
         }
     }

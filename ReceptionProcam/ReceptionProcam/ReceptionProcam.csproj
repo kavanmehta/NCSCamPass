@@ -209,6 +209,15 @@
     <Compile Include="EntityModel\tblVisitorVisitDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetAllGate_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAllIdentity_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAllPurpose_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetVisitorDetailsByGovId_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -557,6 +566,7 @@
     <Content Include="Areas\Area\Views\PurposeMaster\PurposeMaster.cshtml" />
     <Content Include="Areas\Area\Views\PurposeMaster\PurposeList.cshtml" />
     <Content Include="Areas\Area\Views\PurposeMaster\EditPurpose.cshtml" />
+    <Content Include="Areas\Area\Views\BulkVisitorMaster\UploadTemplate.cshtml" />
     <EntityDeploy Include="EntityModel\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -574,7 +584,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Area\Views\BulkVisitorMaster\UploadTemplate.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
