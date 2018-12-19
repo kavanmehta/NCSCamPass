@@ -27,7 +27,7 @@ namespace ReceptionProcam.EntityModel
         public string TimeIn { get; set; }
         public string ValidUpto { get; set; }
         public string Remark { get; set; }
-        public Nullable<bool> IsPassReturned { get; set; }
+        public bool IsPassReturned { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }

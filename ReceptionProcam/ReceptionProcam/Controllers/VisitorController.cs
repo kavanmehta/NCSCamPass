@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Net.Mail;
 using System.Data.Entity.Core.Objects;
+using System.Web.Services.Description;
 
 
 namespace ReceptionProcam.Controllers
@@ -155,11 +156,12 @@ namespace ReceptionProcam.Controllers
                         //objVisEnti.tblVisitors.Add(dbVis);
                         var sss = Session["CapturedImage"].ToString() == "" ? objVisitor.ImagePath : Session["CapturedImage"].ToString();
                         ObjectParameter returnId = new ObjectParameter("Id", typeof(int));
-                       
+
                         var result = objVisEnti.uspInsertVisitorDetails(objVisitor.EmpId, objVisitor.GovIdNo.ToUpper(), objVisitor.Name, objVisitor.DOB, objVisitor.MobileNo, objVisitor.Email, objVisitor.GovId, sss, objVisitor.VisitorId, objVisitor.AssetId, objVisitor.Location, objVisitor.ToMeet, objVisitor.SubLocation, objVisitor.OfficeLocation, objVisitor.Gate, objVisitor.Purpose, objVisitor.TimeIn, objVisitor.ValidUpto, objVisitor.Remark, "123", System.DateTime.Now.ToString("dd-MM-yyyy"), returnId);
                         int VisId = Convert.ToInt32(returnId.Value);
                         TempData["Success"] = "Visitor added Successfully & Mail Sent to concern person!";
                         //SendEmail(objVisitor);
+                        //SendSMS(objVisitor);
                         return RedirectToAction("PrintPass", new { id = VisId });
 
                     }
@@ -214,7 +216,7 @@ namespace ReceptionProcam.Controllers
 
                 var lastVisitorPassNumber = objVisEnti.tblVisitorVisitDetails.OrderByDescending(c => c.Id).FirstOrDefault();
                 var date = DateTime.Now.ToString("yyyyMMdd");
-               
+
                 if (lastVisitorPassNumber == null)
                 {
                     VisData.VisitorId = "NCSPUN" + Convert.ToString(date) + "1";
@@ -223,7 +225,7 @@ namespace ReceptionProcam.Controllers
                 {
                     VisData.VisitorId = "NCSPUN" + Convert.ToString(date) + (Convert.ToInt32(lastVisitorPassNumber.Id) + 1);
                 }
-                clsVisitor VisDtls = new clsVisitor { Id = VisData.Id, VisitorId = Convert.ToString(VisData.VisitorId), Name = Convert.ToString(VisData.Name), DOB = Convert.ToString(VisData.DOB), Location = Convert.ToString(VisData.Location), ToMeet = Convert.ToString(VisData.ToMeet), SubLocation = Convert.ToString(VisData.SubLocation), AssetId = Convert.ToString(VisData.AssetId), MobileNo = Convert.ToString(VisData.MobileNo), Email = Convert.ToString(VisData.EmailId), ValidUpto = Convert.ToString(VisData.ValidUpto), OfficeLocation = Convert.ToString(VisData.OfficeLocation), Gate = Convert.ToString(VisData.Gate), Purpose = Convert.ToString(VisData.Purpose), TimeIn = Convert.ToString(VisData.TimeIn), Remark = Convert.ToString(VisData.Remark), ImagePath = Convert.ToString(VisData.ImagePath), CreatedBy = Convert.ToString(VisData.CreatedBy), CreatedDate = Convert.ToString(VisData.CreatedDate), ModifiedBy = Convert.ToString(VisData.ModifiedBy), ModifiedDate = Convert.ToString(VisData.ModifiedDate),GovIdNo=Convert.ToString(VisData.GovIdNo) ,GovId=Convert.ToString(VisData.GovId),EmpId=Convert.ToString(VisData.EmpId),IsPassReturned=(bool)VisData.IsPassReturned};
+                clsVisitor VisDtls = new clsVisitor { Id = VisData.Id, VisitorId = Convert.ToString(VisData.VisitorId), Name = Convert.ToString(VisData.Name), DOB = Convert.ToString(VisData.DOB), Location = Convert.ToString(VisData.Location), ToMeet = Convert.ToString(VisData.ToMeet), SubLocation = Convert.ToString(VisData.SubLocation), AssetId = Convert.ToString(VisData.AssetId), MobileNo = Convert.ToString(VisData.MobileNo), Email = Convert.ToString(VisData.EmailId), ValidUpto = Convert.ToString(VisData.ValidUpto), OfficeLocation = Convert.ToString(VisData.OfficeLocation), Gate = Convert.ToString(VisData.Gate), Purpose = Convert.ToString(VisData.Purpose), TimeIn = Convert.ToString(VisData.TimeIn), Remark = Convert.ToString(VisData.Remark), ImagePath = Convert.ToString(VisData.ImagePath), CreatedBy = Convert.ToString(VisData.CreatedBy), CreatedDate = Convert.ToString(VisData.CreatedDate), ModifiedBy = Convert.ToString(VisData.ModifiedBy), ModifiedDate = Convert.ToString(VisData.ModifiedDate), GovIdNo = Convert.ToString(VisData.GovIdNo), GovId = Convert.ToString(VisData.GovId), EmpId = Convert.ToString(VisData.EmpId), IsPassReturned = (bool)VisData.IsPassReturned };
                 Session["CapturedImage"] = VisDtls.ImagePath;
                 return View(VisDtls);
             }
@@ -278,7 +280,7 @@ namespace ReceptionProcam.Controllers
                     TempData["SuccessUpdate"] = "Visitor updated Successfully";
                     return RedirectToAction("VisitorDetails");
                 }
-                    
+
                 else
                 {
                     return RedirectToAction("VisitorDetails");
@@ -413,7 +415,7 @@ namespace ReceptionProcam.Controllers
             }
             else
             {
-                return false ;
+                return false;
             }
         }
 
@@ -423,7 +425,7 @@ namespace ReceptionProcam.Controllers
         {
             try
             {
-                ViewBag.AllPurpose = new SelectList(objVisEnti.uspGetAllPurpose(),"Purpose","PurposeText",0);
+                ViewBag.AllPurpose = new SelectList(objVisEnti.uspGetAllPurpose(), "Purpose", "PurposeText", 0);
             }
             catch
             {

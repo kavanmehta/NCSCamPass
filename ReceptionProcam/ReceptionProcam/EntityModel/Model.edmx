@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblGateMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,11 +97,11 @@
           <Property Name="TimeIn" Type="nvarchar" MaxLength="50" />
           <Property Name="ValidUpto" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsPassReturned" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsPassReturned" Type="bit" Nullable="false" />
         </EntityType>
         <Function Name="uspGetAllGate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllIdentity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -172,8 +172,7 @@
           <EntitySet Name="tblVisitorPersonalData" EntityType="Self.tblVisitorPersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetails" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBNCSVisitorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -269,7 +268,7 @@
           <Property Name="TimeIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ValidUpto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPassReturned" Type="Boolean" />
+          <Property Name="IsPassReturned" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -291,7 +290,7 @@
             <Parameter Name="GovId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspGetVisitorDetailsById" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsById_Result)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspGetVisitorDetailsNew" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsNew_Result)" />
           <FunctionImport Name="uspGetVisitorPerDayCount" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorPerDayCount_Result)" />

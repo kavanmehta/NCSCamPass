@@ -246,6 +246,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\logincss\animate.css" />
+    <Content Include="Content\logincss\animsition.min.css" />
     <Content Include="Content\assets\app\js\dashboard.js" />
     <Content Include="Content\assets\app\js\layout-builder.js" />
     <Content Include="Content\assets\app\media\img\bg\bg-1.jpg" />
@@ -496,7 +498,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css" />
+    <Content Include="Content\logincss\hamburgers.min.css" />
+    <Content Include="Content\logincss\main.css" />
+    <Content Include="Content\logincss\util.css" />
     <Content Include="Content\ncsiLogo.png" />
+    <Content Include="Content\logincss\select2.min.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
