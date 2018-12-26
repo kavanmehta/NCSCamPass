@@ -5,6 +5,38 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAssetDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="ManufactureDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpiryDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="date" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBNCSVisitor.dbo.tblAssetIssueDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblAssetIssueDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EmpId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetIssueDateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetSubmitDateTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSubmited" Type="bit" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="date" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblGateMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,6 +66,15 @@
           <Property Name="PurposeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblUserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblVisitor">
           <Key>
@@ -97,11 +138,11 @@
           <Property Name="TimeIn" Type="nvarchar" MaxLength="50" />
           <Property Name="ValidUpto" Type="nvarchar" MaxLength="50" />
           <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsPassReturned" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="date" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsPassReturned" Type="bit" Nullable="false" />
         </EntityType>
         <Function Name="uspGetAllGate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllIdentity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -165,17 +206,48 @@
           <Parameter Name="CreatedDate" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="DBNCSVisitorModelStoreContainer">
+          <EntitySet Name="tblAssetDetails" EntityType="Self.tblAssetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblGateMaster" EntityType="Self.tblGateMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblIdentityMaster" EntityType="Self.tblIdentityMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPurposeMaster" EntityType="Self.tblPurposeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserLogin" EntityType="Self.tblUserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitor" EntityType="Self.tblVisitor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorPersonalData" EntityType="Self.tblVisitorPersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAssetIssueDetails" EntityType="Self.tblAssetIssueDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblAssetIssueDetails].[Id] AS [Id], 
+    [tblAssetIssueDetails].[EmpId] AS [EmpId], 
+    [tblAssetIssueDetails].[AssetId] AS [AssetId], 
+    [tblAssetIssueDetails].[AssetIssueDateTime] AS [AssetIssueDateTime], 
+    [tblAssetIssueDetails].[AssetSubmitDateTime] AS [AssetSubmitDateTime], 
+    [tblAssetIssueDetails].[IsSubmited] AS [IsSubmited], 
+    [tblAssetIssueDetails].[CreatedDate] AS [CreatedDate], 
+    [tblAssetIssueDetails].[CreatedBy] AS [CreatedBy], 
+    [tblAssetIssueDetails].[ModifiedDate] AS [ModifiedDate], 
+    [tblAssetIssueDetails].[ModifiedBy] AS [ModifiedBy]
+    FROM [dbo].[tblAssetIssueDetails] AS [tblAssetIssueDetails]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBNCSVisitorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAssetDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManufactureDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tblGateMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -268,19 +340,36 @@
           <Property Name="TimeIn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ValidUpto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPassReturned" Type="Boolean" Nullable="false" />
+          <Property Name="IsPassReturned" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblAssetIssueDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EmpId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetIssueDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetSubmitDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSubmited" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityContainer Name="DBNCSVisitorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAssetDetails" EntityType="Self.tblAssetDetail" />
           <EntitySet Name="tblGateMasters" EntityType="Self.tblGateMaster" />
           <EntitySet Name="tblIdentityMasters" EntityType="Self.tblIdentityMaster" />
           <EntitySet Name="tblPurposeMasters" EntityType="Self.tblPurposeMaster" />
           <EntitySet Name="tblVisitors" EntityType="Self.tblVisitor" />
           <EntitySet Name="tblVisitorPersonalDatas" EntityType="Self.tblVisitorPersonalData" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetail" />
+          <EntitySet Name="tblAssetIssueDetails" EntityType="Self.tblAssetIssueDetail" />
           <FunctionImport Name="uspGetAllGate" ReturnType="Collection(DBNCSVisitorModel.uspGetAllGate_Result)" />
           <FunctionImport Name="uspGetAllIdentity" ReturnType="Collection(DBNCSVisitorModel.uspGetAllIdentity_Result)" />
           <FunctionImport Name="uspGetAllPurpose" ReturnType="Collection(DBNCSVisitorModel.uspGetAllPurpose_Result)" />
@@ -342,6 +431,7 @@
             <Parameter Name="CreatedBy" Mode="In" Type="String" />
             <Parameter Name="CreatedDate" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblUserLogins" EntityType="DBNCSVisitorModel.tblUserLogin" />
         </EntityContainer>
         <ComplexType Name="uspGetAllGate_Result">
           <Property Type="String" Name="GateName" Nullable="true" MaxLength="50" />
@@ -474,12 +564,37 @@
           <Property Type="DateTime" Name="VisDate" Nullable="true" />
           <Property Type="Int32" Name="No_of_Visitor" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tblUserLogin">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBNCSVisitorModelStoreContainer" CdmEntityContainer="DBNCSVisitorEntities">
+          <EntitySetMapping Name="tblAssetDetails">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetDetail">
+              <MappingFragment StoreEntitySet="tblAssetDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="AssetName" ColumnName="AssetName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ManufactureDate" ColumnName="ManufactureDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblGateMasters">
             <EntityTypeMapping TypeName="DBNCSVisitorModel.tblGateMaster">
               <MappingFragment StoreEntitySet="tblGateMaster">
@@ -581,6 +696,22 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssetIssueDetails">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetIssueDetail">
+              <MappingFragment StoreEntitySet="tblAssetIssueDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="AssetIssueDateTime" ColumnName="AssetIssueDateTime" />
+                <ScalarProperty Name="AssetSubmitDateTime" ColumnName="AssetSubmitDateTime" />
+                <ScalarProperty Name="IsSubmited" ColumnName="IsSubmited" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -749,6 +880,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspInsertVisitorDetails" FunctionName="DBNCSVisitorModel.Store.uspInsertVisitorDetails" />
           <FunctionImportMapping FunctionImportName="uspUpdatePersonalandVisitorData" FunctionName="DBNCSVisitorModel.Store.uspUpdatePersonalandVisitorData" />
+          <EntitySetMapping Name="tblUserLogins">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblUserLogin">
+              <MappingFragment StoreEntitySet="tblUserLogin">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

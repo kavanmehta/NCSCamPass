@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Kavan\Project\NCSCamPass\NCSCamPass\ReceptionProcam\ReceptionProcam\EntityModel\Model.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Security project\Code\NCSCamPass\ReceptionProcam\ReceptionProcam\EntityModel\Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

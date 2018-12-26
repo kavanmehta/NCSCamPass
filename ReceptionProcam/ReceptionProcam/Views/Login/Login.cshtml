@@ -1,91 +1,75 @@
 ﻿@{
     Layout = "";
 }
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title NCSI</title>
-    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+@model ReceptionProcam.Models.LoginModel
+@if (TempData["Failure"] != null)
+{
+    <p class="alert alert-danger" style="color: #9F6000; background-color: #FEEFB3;">@TempData["Failure"]</p>
+}
+ <html>
+ <head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>@ViewBag.Title NCSI</title>
+     @section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    }
+    
+     @*<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>*@
+     @*<script>
+         WebFont.load({
+             google: { "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
+             active: function () {
+                 sessionStorage.fonts = true;
+             }
+         });
+     </script>*@
+     <link rel="shortcut icon" href="~/Content/assets/demo/default/media/img/logo/favicon.ico" />
+     <link href="~/Content/logincss/animate.css" rel="stylesheet" />
+     <link href="~/Content/logincss/hamburgers.min.css" rel="stylesheet" />
+     <link href="~/Content/logincss/animsition.min.css" rel="stylesheet" />
+     <link href="~/Content/logincss/select2.min.css" rel="stylesheet" />
+     <link href="~/Content/logincss/util.css" rel="stylesheet" />
+     <link href="~/Content/logincss/main.css" rel="stylesheet" />
+ </head>
+ <body>
+  @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+  {
 
-    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+      <div class="limiter">
+          <div class="container-login100">
+              <div class="wrap-login100">
+                  <form class="login100-form validate-form">
+                      <div class="m-login__logo">
+                          <span class="login100-form-title p-b-26">
+                              <a href="#">
+                                  <img src="~/Content/assets/demo/default/media/img/logo/logo-ncs.svg" style="height:12%;" />
+                              </a>
+                          </span>
+                      </div>
+                      <span class="login100-form-title p-b-48">
+                          <i class="zmdi zmdi-font"></i>
 
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
-    <script src="~/Scripts/toastr.min.js"></script>*@
-    @*@Styles.Render("~/Content/css")*@
-    @*@Scripts.Render("~/bundles/modernizr")*@
-    @*<meta name="description" content="Latest updates and statistic charts">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">*@
-    <!--begin::Web font -->
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: { "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
-            active: function () {
-                sessionStorage.fonts = true;
-            }
-        });
-    </script>
-    <script type="text/javascript">
+                      </span>
 
-    </script>
-    <!--Data Table-->
-    <!--begin::Base Styles -->
-    <!--begin::Page Vendors -->
-    @*<link href="~/Content/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" />*@
-    <!--end::Page Vendors -->
-    @*<link href="~/Content/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />*@
-    <!--end::Base Styles -->
-    <link rel="shortcut icon" href="~/Content/assets/demo/default/media/img/logo/favicon.ico" />
-    <link href="~/Content/logincss/animate.css" rel="stylesheet" />
-    <link href="~/Content/logincss/hamburgers.min.css" rel="stylesheet" />
-    <link href="~/Content/logincss/animsition.min.css" rel="stylesheet" />
-    <link href="~/Content/logincss/select2.min.css" rel="stylesheet" />
-    <link href="~/Content/logincss/util.css" rel="stylesheet" />
-    <link href="~/Content/logincss/main.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <form class="login100-form validate-form">
-                        <div class="m-login__logo">
-                            <span class="login100-form-title p-b-26">
-                                <a href="#">
-                                    <img src="~/Content/assets/demo/default/media/img/logo/logo-ncs.svg" style="height:12%;"/>
-                                </a>
-                            </span>
-                        </div>
-                    <span class="login100-form-title p-b-48">
-                        <i class="zmdi zmdi-font"></i>
-                    </span>
-
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                        <input class="input100" type="text" name="email">
-                        <span class="focus-input100" data-placeholder="Email"></span>
+                      <div class="wrap-input100 validate-input">
+                          @Html.LabelFor(model => model.UserName, htmlAttributes: new { })<span class="text-danger">*</span>
+                          @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { Id = "txtUserName", autocomplete = "off", maxlength = 15, @class = "form-control m-input input100 ", @placeholder = "User Name" } })
+                          <p class="help-block">@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger " })</p>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input class="input100" type="password" name="pass">
-                        <span class="focus-input100" data-placeholder="Password"></span>
+                        
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { })<span class="text-danger">*</span>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { Id = "txtPassword", autocomplete = "off", maxlength = 15, @class = "form-control m-input input100 ", @placeholder = "Password" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger " })</p>
+
                     </div>
 
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn" style="background-color: #009b98;">
-                                Login
-                            </button>
+                            <input class="login100-form-btn" type="submit" style="background-color: #009b98;" value ="Login"/>
                         </div>
                     </div>
                 </form>
@@ -93,6 +77,7 @@
         </div>
     </div>
 
+}
     @*<div class="m-grid m-grid--hor m-grid--root m-page">
         <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin" id="m_login">
             <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
