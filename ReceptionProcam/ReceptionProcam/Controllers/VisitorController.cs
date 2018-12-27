@@ -327,7 +327,26 @@ namespace ReceptionProcam.Controllers
                 throw ex;
             }
         }
+        [HttpGet]
+        public ActionResult LoadData()
+        {
+            try
+            {
+                //Creating instance of DatabaseContext class  
+                
+                    using (DBNCSVisitorEntities dc = new DBNCSVisitorEntities())
+                    {
+                        var data = dc.uspGetVisitorDetailsNew().OrderBy(a => a.GovIdNo).ToList();
+                        return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+                    }  
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
+        }  
         public ActionResult ViewVisitor()
         {
             try
