@@ -212,6 +212,10 @@ namespace ReceptionProcam.Controllers
             try
             {
                 //var VisData = objVisEnti.tblVisitors.Where(s => s.Id == Id).FirstOrDefault();
+                getAllPurpose();
+                getAllIdentity();
+                getAllGate();
+
                 var VisData = objVisEnti.uspGetVisitorDetailsById(Id).FirstOrDefault();
 
                 var lastVisitorPassNumber = objVisEnti.tblVisitorVisitDetails.OrderByDescending(c => c.Id).FirstOrDefault();
