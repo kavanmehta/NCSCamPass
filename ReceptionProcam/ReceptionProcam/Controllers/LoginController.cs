@@ -20,8 +20,8 @@ namespace ReceptionProcam.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
                 var user = (from userlist in objVisEnti.tblUserLogins
                             where userlist.UserName == login.UserName && userlist.Password == login.Password
@@ -29,7 +29,8 @@ namespace ReceptionProcam.Controllers
                             {
                                 userlist.UserID,
                                 userlist.UserName,
-                                userlist.Role
+                                userlist.Role,
+                                userlist.Password
                             }).ToList();
                 if (user.FirstOrDefault() != null)
                 {
@@ -51,16 +52,17 @@ namespace ReceptionProcam.Controllers
                 {
                     TempData["Failure"] = "Please enter valid username and password.";
                     return RedirectToAction("Login", TempData["Failure"]);
-
                 }
+                return View();
             }
-            else
-            {
-                //return View("Login",FormMethod.Get);
-                return View(login);
+        
+            //else
+            //{
+            //    return Redirect(Request.UrlReferrer.ToString());
+            //    //return View("Login", login);
 
-            }
-        }
+            //}
+        //}
 
         public ActionResult Logout()
         {
