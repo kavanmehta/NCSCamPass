@@ -164,6 +164,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Area\AreaAreaRegistration.cs" />
+    <Compile Include="Areas\Area\Controllers\AssetManagementController.cs" />
     <Compile Include="Areas\Area\Controllers\BulkVisitorMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
@@ -600,6 +601,9 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Area\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Area\Views\AssetManagement\AssetIssue.cshtml" />
+    <Content Include="Areas\Area\Views\AssetManagement\AssetDetails.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -685,6 +689,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Area\Views\AssetMaster\" />
     <Folder Include="VisitorImage\" />
   </ItemGroup>
   <ItemGroup>
