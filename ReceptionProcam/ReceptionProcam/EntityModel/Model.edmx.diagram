@@ -5,15 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="545edf25ea304bc3b150455a86c19426" Name="Diagram1">
-        <EntityTypeShape EntityType="DBNCSVisitorModel.tblAssetDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblGateMaster" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblIdentityMaster" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblPurposeMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblVisitor" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblVisitorPersonalData" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblVisitorVisitDetail" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBNCSVisitorModel.tblAssetIssueDetail" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBNCSVisitorModel.tblUserLogin" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBNCSVisitorModel.tblEmployeeDetail" Width="1.5" PointX="4.5" PointY="10.25" />
+        <EntityTypeShape EntityType="DBNCSVisitorModel.tblAssetDetail" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DBNCSVisitorModel.tblAssetIssueDetail" Width="1.5" PointX="6.75" PointY="9.875" />
+        <AssociationConnector Association="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblEmployeeDetails" />
+        <AssociationConnector Association="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblAssetIssueDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
