@@ -176,11 +176,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Area\Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
-    <Compile Include="EntityModel\Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
-    </Compile>
+    <Compile Include="EntityModel\Model.Context.cs" />
     <Compile Include="EntityModel\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,6 +191,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblAssetIssueDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblEmployeeDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblGateMaster.cs">
@@ -587,17 +586,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="EntityModel\Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="EntityModel\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="EntityModel\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />

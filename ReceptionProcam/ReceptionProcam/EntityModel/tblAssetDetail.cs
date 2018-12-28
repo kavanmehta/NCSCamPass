@@ -14,15 +14,17 @@ namespace ReceptionProcam.EntityModel
     
     public partial class tblAssetDetail
     {
-        public int Id { get; set; }
-        public string AssetId { get; set; }
+        public int ID { get; set; }
+        public string AssetModelId { get; set; }
         public string AssetName { get; set; }
-        public string Type { get; set; }
-        public string ManufactureDate { get; set; }
-        public string ExpiryDate { get; set; }
+        public string AssetType { get; set; }
+        public Nullable<System.DateTime> ManufacturingDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public Nullable<bool> IsIssued { get; set; }
+        public string LicesenceNo { get; set; }
     }
 }
