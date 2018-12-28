@@ -165,10 +165,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Area\AreaAreaRegistration.cs" />
     <Compile Include="Areas\Area\Controllers\AssetManagementController.cs" />
+    <Compile Include="Areas\Area\Controllers\AssetMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\BulkVisitorMasterController.cs" />
+    <Compile Include="Areas\Area\Controllers\EmployeeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
+    <Compile Include="Areas\Area\Models\AssetModel.cs" />
+    <Compile Include="Areas\Area\Models\EmployeeMasters.cs" />
     <Compile Include="Areas\Area\Models\IdentityMasters.cs" />
     <Compile Include="Areas\Area\Models\PurposeMasters.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -610,6 +614,9 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Area\Views\AssetMaster\AddAsset.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\AssetList.cshtml" />
+    <Content Include="Areas\Area\Views\EmployeeMaster\EmployeeMaster.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -695,7 +702,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Area\Views\AssetMaster\" />
     <Folder Include="VisitorImage\" />
   </ItemGroup>
   <ItemGroup>
