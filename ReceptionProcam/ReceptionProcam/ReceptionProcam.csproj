@@ -177,7 +177,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Area\Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
-    <Compile Include="EntityModel\Model.Context.cs" />
+    <Compile Include="EntityModel\Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +196,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblAssetIssueDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblEmpDesignationMaster.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblEmployeeDetail.cs">
@@ -583,20 +590,26 @@
     <Content Include="Areas\Area\Views\PurposeMaster\PurposeList.cshtml" />
     <Content Include="Areas\Area\Views\PurposeMaster\EditPurpose.cshtml" />
     <Content Include="Areas\Area\Views\BulkVisitorMaster\UploadTemplate.cshtml" />
+    <Content Include="Areas\Area\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Area\Views\AssetManagement\AssetIssue.cshtml" />
+    <Content Include="Areas\Area\Views\AssetManagement\AssetDetails.cshtml" />
     <EntityDeploy Include="EntityModel\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="EntityModel\Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="EntityModel\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="EntityModel\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Area\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Area\Views\AssetManagement\AssetIssue.cshtml" />
-    <Content Include="Areas\Area\Views\AssetManagement\AssetDetails.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
