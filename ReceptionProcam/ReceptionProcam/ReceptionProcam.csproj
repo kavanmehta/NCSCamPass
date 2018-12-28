@@ -165,6 +165,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Area\AreaAreaRegistration.cs" />
     <Compile Include="Areas\Area\Controllers\AssetManagementController.cs" />
+    <Compile Include="Areas\Area\Controllers\AssetMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\BulkVisitorMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
@@ -597,6 +598,8 @@
     <Content Include="Areas\Area\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Area\Views\AssetManagement\AssetIssue.cshtml" />
     <Content Include="Areas\Area\Views\AssetManagement\AssetDetails.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\AddAsset.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\AssetList.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -682,7 +685,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Area\Views\AssetMaster\" />
     <Folder Include="VisitorImage\" />
   </ItemGroup>
   <ItemGroup>

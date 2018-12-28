@@ -6,16 +6,18 @@ using System.Web.Mvc;
 
 namespace ReceptionProcam.Areas.Area.Controllers
 {
-    public class AssetManagementController : Controller
+    public class AssetMasterController : Controller
     {
-        // GET: Area/AssetManagement
+        // GET: Area/AssetMaster
         [HttpGet]
-        public ActionResult AssetDetails()
+        public ActionResult AddAsset()
         {
             return View();
         }
+
+        // GET: Area/AssetMaster
         [HttpGet]
-        public ActionResult AssetIssue()
+        public ActionResult Assetlist()
         {
             return View();
         }
