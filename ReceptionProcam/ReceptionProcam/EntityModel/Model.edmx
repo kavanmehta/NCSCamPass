@@ -28,7 +28,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmpId" Type="int" />
-          <Property Name="AssetId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetId" Type="int" />
           <Property Name="AssetIssueDateTime" Type="datetime" />
           <Property Name="AssetSubmitDateTime" Type="datetime" />
           <Property Name="IsSubmited" Type="bit" />
@@ -155,6 +155,18 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_tblAssetIssueDetails_tblAssetIssueDetails">
+          <End Role="tblAssetDetails" Type="Self.tblAssetDetails" Multiplicity="0..1" />
+          <End Role="tblAssetIssueDetails" Type="Self.tblAssetIssueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetDetails">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetIssueDetails">
+              <PropertyRef Name="AssetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblAssetIssueDetails_tblEmployeeDetails">
           <End Role="tblEmployeeDetails" Type="Self.tblEmployeeDetails" Multiplicity="0..1" />
           <End Role="tblAssetIssueDetails" Type="Self.tblAssetIssueDetails" Multiplicity="*" />
@@ -239,6 +251,10 @@
           <EntitySet Name="tblVisitor" EntityType="Self.tblVisitor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorPersonalData" EntityType="Self.tblVisitorPersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAssetIssueDetails_tblAssetIssueDetails" Association="Self.FK_tblAssetIssueDetails_tblAssetIssueDetails">
+            <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
+            <End Role="tblAssetIssueDetails" EntitySet="tblAssetIssueDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblAssetIssueDetails_tblEmployeeDetails" Association="Self.FK_tblAssetIssueDetails_tblEmployeeDetails">
             <End Role="tblEmployeeDetails" EntitySet="tblEmployeeDetails" />
             <End Role="tblAssetIssueDetails" EntitySet="tblAssetIssueDetails" />
@@ -415,14 +431,18 @@
             <Parameter Name="CreatedDate" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="tblUserLogins" EntityType="DBNCSVisitorModel.tblUserLogin" />
-          <EntitySet Name="tblEmployeeDetails" EntityType="DBNCSVisitorModel.tblEmployeeDetail" />
           <EntitySet Name="tblAssetDetails" EntityType="DBNCSVisitorModel.tblAssetDetail" />
           <EntitySet Name="tblAssetIssueDetails" EntityType="DBNCSVisitorModel.tblAssetIssueDetail" />
+          <EntitySet Name="tblEmployeeDetails" EntityType="DBNCSVisitorModel.tblEmployeeDetail" />
+          <AssociationSet Name="FK_tblAssetIssueDetails_tblAssetIssueDetails" Association="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblAssetIssueDetails">
+            <End Role="tblAssetDetail" EntitySet="tblAssetDetails" />
+            <End Role="tblAssetIssueDetail" EntitySet="tblAssetIssueDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblAssetIssueDetails_tblEmployeeDetails" Association="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblEmployeeDetails">
             <End Role="tblEmployeeDetail" EntitySet="tblEmployeeDetails" />
             <End Role="tblAssetIssueDetail" EntitySet="tblAssetIssueDetails" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="uspGetAllGate_Result">
           <Property Type="String" Name="GateName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Gate" Nullable="false" />
@@ -563,18 +583,6 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblEmployeeDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmpCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmpDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmpDept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblAssetIssueDetails" Relationship="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblEmployeeDetails" FromRole="tblEmployeeDetail" ToRole="tblAssetIssueDetail" />
-        </EntityType>
         <EntityType Name="tblAssetDetail">
           <Key>
             <PropertyRef Name="ID" />
@@ -591,6 +599,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsIssued" Type="Boolean" />
           <Property Name="LicesenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetIssueDetails" Relationship="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblAssetIssueDetails" FromRole="tblAssetDetail" ToRole="tblAssetIssueDetail" />
         </EntityType>
         <EntityType Name="tblAssetIssueDetail">
           <Key>
@@ -598,7 +607,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmpId" Type="Int32" />
-          <Property Name="AssetId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetId" Type="Int32" />
           <Property Name="AssetIssueDateTime" Type="DateTime" Precision="3" />
           <Property Name="AssetSubmitDateTime" Type="DateTime" Precision="3" />
           <Property Name="IsSubmited" Type="Boolean" />
@@ -606,8 +615,33 @@
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetDetail" Relationship="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblAssetIssueDetails" FromRole="tblAssetIssueDetail" ToRole="tblAssetDetail" />
           <NavigationProperty Name="tblEmployeeDetail" Relationship="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblEmployeeDetails" FromRole="tblAssetIssueDetail" ToRole="tblEmployeeDetail" />
         </EntityType>
+        <EntityType Name="tblEmployeeDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmpDesignation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmpDept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetIssueDetails" Relationship="DBNCSVisitorModel.FK_tblAssetIssueDetails_tblEmployeeDetails" FromRole="tblEmployeeDetail" ToRole="tblAssetIssueDetail" />
+        </EntityType>
+        <Association Name="FK_tblAssetIssueDetails_tblAssetIssueDetails">
+          <End Type="DBNCSVisitorModel.tblAssetDetail" Role="tblAssetDetail" Multiplicity="0..1" />
+          <End Type="DBNCSVisitorModel.tblAssetIssueDetail" Role="tblAssetIssueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetIssueDetail">
+              <PropertyRef Name="AssetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblAssetIssueDetails_tblEmployeeDetails">
           <End Type="DBNCSVisitorModel.tblEmployeeDetail" Role="tblEmployeeDetail" Multiplicity="0..1" />
           <End Type="DBNCSVisitorModel.tblAssetIssueDetail" Role="tblAssetIssueDetail" Multiplicity="*" />
@@ -620,7 +654,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -905,18 +939,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblEmployeeDetails">
-            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblEmployeeDetail">
-              <MappingFragment StoreEntitySet="tblEmployeeDetails">
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="EmpDept" ColumnName="EmpDept" />
-                <ScalarProperty Name="EmpDesignation" ColumnName="EmpDesignation" />
-                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblAssetDetails">
             <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetDetail">
               <MappingFragment StoreEntitySet="tblAssetDetails">
@@ -947,6 +969,18 @@
                 <ScalarProperty Name="AssetIssueDateTime" ColumnName="AssetIssueDateTime" />
                 <ScalarProperty Name="AssetId" ColumnName="AssetId" />
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEmployeeDetails">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblEmployeeDetail">
+              <MappingFragment StoreEntitySet="tblEmployeeDetails">
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="EmpDept" ColumnName="EmpDept" />
+                <ScalarProperty Name="EmpDesignation" ColumnName="EmpDesignation" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

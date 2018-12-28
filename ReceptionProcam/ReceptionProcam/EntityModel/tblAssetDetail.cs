@@ -14,6 +14,11 @@ namespace ReceptionProcam.EntityModel
     
     public partial class tblAssetDetail
     {
+        public tblAssetDetail()
+        {
+            this.tblAssetIssueDetails = new HashSet<tblAssetIssueDetail>();
+        }
+    
         public int ID { get; set; }
         public string AssetModelId { get; set; }
         public string AssetName { get; set; }
@@ -26,5 +31,7 @@ namespace ReceptionProcam.EntityModel
         public string ModifiedBy { get; set; }
         public Nullable<bool> IsIssued { get; set; }
         public string LicesenceNo { get; set; }
+    
+        public virtual ICollection<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace ReceptionProcam.EntityModel
     {
         public int ID { get; set; }
         public Nullable<int> EmpId { get; set; }
-        public string AssetId { get; set; }
+        public Nullable<int> AssetId { get; set; }
         public Nullable<System.DateTime> AssetIssueDateTime { get; set; }
         public Nullable<System.DateTime> AssetSubmitDateTime { get; set; }
         public Nullable<bool> IsSubmited { get; set; }
@@ -25,6 +25,7 @@ namespace ReceptionProcam.EntityModel
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
     
+        public virtual tblAssetDetail tblAssetDetail { get; set; }
         public virtual tblEmployeeDetail tblEmployeeDetail { get; set; }
     }
 }
