@@ -1,4 +1,5 @@
-﻿using ReceptionProcam.EntityModel;
+﻿using ReceptionProcam.Areas.Area.Models;
+using ReceptionProcam.EntityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,30 +12,38 @@ namespace ReceptionProcam.Areas.Area.Controllers
     {
         DBNCSVisitorEntities objAdminEnti = new DBNCSVisitorEntities();
 
-        //[HttpGet]
-        //public ActionResult PurposeMaster()
-        //{
-        //    PurposeMasters master = new PurposeMasters();
-        //    return View(master);
-        //}
+        [HttpGet]
+        public ActionResult EmployeeMaster()
+        {
+            //EmployeeMasters master = new EmployeeMasters();
+            GetDesignationList();
+            return View();
+        }
+        [HttpGet]
+        public void GetDesignationList()
+        {
+            ViewBag.DesignationList =  (from c in objAdminEnti.tblEmpDesignationMasters select new SelectListItem { Text = c.EmpDesignationName, Value = c.ID.ToString() }).ToList();
+        }
 
-        //[HttpPost]
-        //public ActionResult PurposeMaster(PurposeMasters objMaster)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        tblPurposeMaster master = new tblPurposeMaster();
-        //        master.PurposeName = objMaster.PurposeName;
-        //        master.PurposeCode = objMaster.PurposeCode;
-        //        master.CreatedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
-        //        master.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
-        //        objAdminEnti.tblPurposeMasters.Add(master);
-        //        objAdminEnti.SaveChanges();
-        //        TempData["Success"] = "Purpose added successfully.";
-        //        return RedirectToAction("PurposeMaster");
-        //    }
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult EmployeeMaster(EmployeeMasters objMaster)
+        {
+            if (ModelState.IsValid)
+            {
+                tblEmployeeDetail master = new tblEmployeeDetail();
+                master.EmpName = objMaster.EmpName;
+                master.EmpCode = objMaster.EmpCode;
+                master.EmpDesignationID = objMaster.EmpDesignationID;
+                master.EmpDept = objMaster.EmpDept;
+                master.CreatedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
+                master.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
+                objAdminEnti.tblEmployeeDetails.Add(master);
+                objAdminEnti.SaveChanges();
+                TempData["Success"] = "Employee added successfully.";
+                return RedirectToAction("EmployeeMaster");
+            }
+            return View();
+        }
 
         //[HttpGet]
         //public ActionResult PurposeList()
