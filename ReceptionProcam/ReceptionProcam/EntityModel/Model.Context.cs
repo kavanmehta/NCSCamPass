@@ -28,14 +28,16 @@ namespace ReceptionProcam.EntityModel
         }
     
         public virtual DbSet<tblAssetDetail> tblAssetDetails { get; set; }
+        public virtual DbSet<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
+        public virtual DbSet<tblEmpDesignationMaster> tblEmpDesignationMasters { get; set; }
+        public virtual DbSet<tblEmployeeDetail> tblEmployeeDetails { get; set; }
         public virtual DbSet<tblGateMaster> tblGateMasters { get; set; }
         public virtual DbSet<tblIdentityMaster> tblIdentityMasters { get; set; }
         public virtual DbSet<tblPurposeMaster> tblPurposeMasters { get; set; }
+        public virtual DbSet<tblUserLogin> tblUserLogins { get; set; }
         public virtual DbSet<tblVisitor> tblVisitors { get; set; }
         public virtual DbSet<tblVisitorPersonalData> tblVisitorPersonalDatas { get; set; }
         public virtual DbSet<tblVisitorVisitDetail> tblVisitorVisitDetails { get; set; }
-        public virtual DbSet<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
-        public virtual DbSet<tblUserLogin> tblUserLogins { get; set; }
     
         public virtual ObjectResult<uspGetAllGate_Result> uspGetAllGate()
         {

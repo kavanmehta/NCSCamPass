@@ -26,6 +26,5 @@ namespace ReceptionProcam.EntityModel
         public string ModifiedBy { get; set; }
     
         public virtual tblAssetDetail tblAssetDetail { get; set; }
-        public virtual tblEmployeeDetail tblEmployeeDetail { get; set; }
     }
 }

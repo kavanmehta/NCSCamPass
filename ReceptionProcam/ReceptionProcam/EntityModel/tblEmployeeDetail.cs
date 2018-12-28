@@ -14,18 +14,15 @@ namespace ReceptionProcam.EntityModel
     
     public partial class tblEmployeeDetail
     {
-        public tblEmployeeDetail()
-        {
-            this.tblAssetIssueDetails = new HashSet<tblAssetIssueDetail>();
-        }
-    
         public int ID { get; set; }
         public string EmpCode { get; set; }
         public string EmpName { get; set; }
-        public string EmpDesignation { get; set; }
+        public Nullable<int> EmpDesignationID { get; set; }
         public string EmpDept { get; set; }
         public string PhoneNo { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual ICollection<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
+        public virtual tblEmpDesignationMaster tblEmpDesignationMaster { get; set; }
     }
 }
