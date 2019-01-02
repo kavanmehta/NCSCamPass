@@ -2,6 +2,7 @@
 using ReceptionProcam.EntityModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,74 +16,76 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpGet]
         public ActionResult EmployeeMaster()
         {
-            //EmployeeMasters master = new EmployeeMasters();
             GetDesignationList();
             return View();
         }
         [HttpGet]
         public void GetDesignationList()
         {
-            ViewBag.DesignationList =  (from c in objAdminEnti.tblEmpDesignationMasters select new SelectListItem { Text = c.EmpDesignationName, Value = c.ID.ToString() }).ToList();
+            ViewBag.DesignationList = new SelectList(objAdminEnti.tblEmpDesignationMasters, "ID", "EmpDesignationName", 0);
         }
 
         [HttpPost]
         public ActionResult EmployeeMaster(EmployeeMasters objMaster)
         {
-            if (ModelState.IsValid)
-            {
                 tblEmployeeDetail master = new tblEmployeeDetail();
                 master.EmpName = objMaster.EmpName;
                 master.EmpCode = objMaster.EmpCode;
                 master.EmpDesignationID = objMaster.EmpDesignationID;
                 master.EmpDept = objMaster.EmpDept;
+                master.PhoneNo = objMaster.PhoneNo;
                 master.CreatedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
                 master.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
+                master.IsActive = true;
                 objAdminEnti.tblEmployeeDetails.Add(master);
                 objAdminEnti.SaveChanges();
                 TempData["Success"] = "Employee added successfully.";
                 return RedirectToAction("EmployeeMaster");
-            }
+            
+           // return View();
+        }
+
+        [HttpGet]
+        public ActionResult EmployeeList()
+        {
+            //var employeeList = objAdminEnti.tblEmployeeDetails.OrderByDescending(x => x.ID).ThenBy(x => x.CreatedDate).ToList();
+            var employeeList = objAdminEnti.uspGetEmployeeList().ToList();
+            ViewBag.AllEmployeeDetails = employeeList;
+            GetDesignationList();
             return View();
         }
 
-        //[HttpGet]
-        //public ActionResult PurposeList()
-        //{
-        //    var purposeList = objAdminEnti.tblPurposeMasters.OrderByDescending(x => x.Id).ThenBy(x => x.CreatedDate).ToList();
-        //    ViewBag.AllPurposeDetails = purposeList;
-        //    return View();
-        //}
 
+        [HttpGet]
+        public ActionResult EditEmployee(int Id)
+        {
+            var empData = objAdminEnti.tblEmployeeDetails.Where(s => s.ID == Id).FirstOrDefault();
+            EmployeeMasters empDtls = new EmployeeMasters { ID = empData.ID, EmpName = empData.EmpName, EmpCode = empData.EmpCode, EmpDept = empData.EmpDept, EmpDesignationID = empData.EmpDesignationID, IsActive = Convert.ToBoolean(empData.IsActive) };
+            GetDesignationList();
+            return View(empDtls);
+        }
 
-        //[HttpGet]
-        //public ActionResult EditPurpose(int Id)
-        //{
-        //    var VisData = objAdminEnti.tblPurposeMasters.Where(s => s.Id == Id).FirstOrDefault();
-        //    PurposeMasters VisDtls = new PurposeMasters { Id = VisData.Id, PurposeName = VisData.PurposeName, PurposeCode = VisData.PurposeCode };
-        //    return View(VisDtls);
-        //}
-
-        //[HttpPost]
-        //public ActionResult EditPurpose(int Id, PurposeMasters objMaster)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var dbPurpose = objAdminEnti.tblPurposeMasters.SingleOrDefault(b => b.Id == Id);
-        //        if (dbPurpose != null)
-        //        {
-        //            dbPurpose.PurposeName = objMaster.PurposeName;
-        //            dbPurpose.PurposeCode = objMaster.PurposeCode;
-        //            dbPurpose.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
-        //            objAdminEnti.tblPurposeMasters.Add(dbPurpose);
-        //            objAdminEnti.tblPurposeMasters.Attach(dbPurpose);
-        //            objAdminEnti.Entry(dbPurpose).State = EntityState.Modified;
-        //            objAdminEnti.SaveChanges();
-        //            TempData["Success"] = "Purpose Updated successfully.";
-        //            return RedirectToAction("PurposeList");
-        //        }
-
-        //    }
-        //    return RedirectToAction("PurposeList");
-        //}
+        [HttpPost]
+        public ActionResult EditEmployee(int Id, EmployeeMasters objMaster)
+        {
+                var dbEmployee = objAdminEnti.tblEmployeeDetails.SingleOrDefault(b => b.ID == Id);
+                if (dbEmployee != null)
+                {
+                    dbEmployee.EmpName = objMaster.EmpName;
+                    dbEmployee.EmpCode = objMaster.EmpCode;
+                    dbEmployee.EmpDesignationID = objMaster.EmpDesignationID;
+                    dbEmployee.EmpDept = objMaster.EmpDept;
+                    dbEmployee.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
+                    dbEmployee.PhoneNo = objMaster.PhoneNo;
+                    dbEmployee.IsActive = objMaster.IsActive;
+                    objAdminEnti.tblEmployeeDetails.Add(dbEmployee);
+                    objAdminEnti.tblEmployeeDetails.Attach(dbEmployee);
+                    objAdminEnti.Entry(dbEmployee).State = EntityState.Modified;
+                    objAdminEnti.SaveChanges();
+                    TempData["Success"] = "Employee Updated successfully.";
+                    return RedirectToAction("EmployeeList");
+                }
+                return RedirectToAction("EmployeeList");
+        }
     }
 }

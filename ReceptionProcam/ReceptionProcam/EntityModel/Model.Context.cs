@@ -54,6 +54,11 @@ namespace ReceptionProcam.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllPurpose_Result>("uspGetAllPurpose");
         }
     
+        public virtual ObjectResult<uspGetEmployeeList_Result> uspGetEmployeeList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetEmployeeList_Result>("uspGetEmployeeList");
+        }
+    
         public virtual ObjectResult<uspGetVisitorDetails_Result> uspGetVisitorDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetVisitorDetails_Result>("uspGetVisitorDetails");
