@@ -10,20 +10,17 @@
 namespace ReceptionProcam.EntityModel
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblEmployeeDetail
+    public partial class uspGetEmployeeList_Result
     {
         public int ID { get; set; }
         public string EmpCode { get; set; }
         public string EmpName { get; set; }
-        public Nullable<int> EmpDesignationID { get; set; }
+        public string EmpDesignationID { get; set; }
         public string EmpDept { get; set; }
         public string PhoneNo { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-    
-        public virtual tblEmpDesignationMaster tblEmpDesignationMaster { get; set; }
     }
 }

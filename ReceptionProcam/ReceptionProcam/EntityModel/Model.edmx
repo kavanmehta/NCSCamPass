@@ -57,6 +57,7 @@
           <Property Name="PhoneNo" Type="nvarchar" MaxLength="15" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="tblGateMaster">
           <Key>
@@ -192,6 +193,7 @@
         <Function Name="uspGetAllGate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllIdentity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllPurpose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspGetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetailsByGovId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="VisType" Type="nvarchar" Mode="In" />
@@ -331,6 +333,7 @@
           <Property Name="PhoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="tblEmpDesignationMaster" Relationship="Self.FK_tblEmployeeDetails_tblEmpDesignationMaster" FromRole="tblEmployeeDetails" ToRole="tblEmpDesignationMaster" />
         </EntityType>
         <EntityType Name="tblGateMaster">
@@ -487,6 +490,7 @@
           <FunctionImport Name="uspGetAllGate" ReturnType="Collection(DBNCSVisitorModel.uspGetAllGate_Result)" />
           <FunctionImport Name="uspGetAllIdentity" ReturnType="Collection(DBNCSVisitorModel.uspGetAllIdentity_Result)" />
           <FunctionImport Name="uspGetAllPurpose" ReturnType="Collection(DBNCSVisitorModel.uspGetAllPurpose_Result)" />
+          <FunctionImport Name="uspGetEmployeeList" ReturnType="Collection(DBNCSVisitorModel.uspGetEmployeeList_Result)" />
           <FunctionImport Name="uspGetVisitorDetails" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetails_Result)" />
           <FunctionImport Name="uspGetVisitorDetailsByGovId" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsByGovId_Result)">
             <Parameter Name="VisType" Mode="In" Type="String" />
@@ -557,6 +561,17 @@
         <ComplexType Name="uspGetAllPurpose_Result">
           <Property Type="String" Name="PurposeText" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Purpose" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="uspGetEmployeeList_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="EmpCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmpName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmpDesignationID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmpDept" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="15" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="uspGetVisitorDetails_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -737,6 +752,7 @@
                 <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -875,6 +891,21 @@
               <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllPurpose_Result">
                 <ScalarProperty Name="PurposeText" ColumnName="PurposeText" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetEmployeeList" FunctionName="DBNCSVisitorModel.Store.uspGetEmployeeList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetEmployeeList_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpDesignationID" ColumnName="EmpDesignationID" />
+                <ScalarProperty Name="EmpDept" ColumnName="EmpDept" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
