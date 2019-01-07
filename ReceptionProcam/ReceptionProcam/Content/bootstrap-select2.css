@@ -1,0 +1,33 @@
+﻿.bootstrap-select .dropdown-menu>li>a small.muted {
+    display: none;
+}
+
+.bootstrap-select .dropdown-toggle .filter-option {
+    position: relative;
+    /*padding-left: 38px;*/
+}
+
+.bootstrap-select .dropdown-toggle .filter-option:before {
+    /*content: "Size:";*/
+    font-size: 14px;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.dropdown-menu show {
+    max-height: 313.766px;
+    overflow: hidden;
+    /* min-height: 180px; */
+    /* min-width: 471px; */
+    position: absolute;
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(0px, 75px, 0px);
+}
+
+/*#assetCompanyID {
+    width:44%;
+}*/
