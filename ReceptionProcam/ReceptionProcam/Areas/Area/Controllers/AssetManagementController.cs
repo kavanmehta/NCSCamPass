@@ -26,7 +26,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
 
                 using (DBNCSVisitorEntities dc = new DBNCSVisitorEntities())
                 {
-                    var data = dc.uspGetVisitorDetailsNew().OrderBy(a => a.GovIdNo).ToList();
+                    var data = dc.uspGetAssetDetails().OrderBy(a => a.AssetModelName).ToList();
                     return Json(new { data = data }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -39,12 +39,14 @@ namespace ReceptionProcam.Areas.Area.Controllers
         }
 
         [HttpPost]
-        public Boolean SubmittAsset(string id)
+        public Boolean SubmitAsset(int id)
         {
-            var result = objVisEnti.tblVisitorVisitDetails.SingleOrDefault(b => b.GovIdNo == id);
+            var result = objVisEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
             if (result != null)
             {
-                result.IsPassReturned = true;
+                result.IsSubmited = true;
+                result.AssetSubmitDateTime = DateTime.Now;
+
                 objVisEnti.SaveChanges();
                 TempData["SuccessSubmit"] = "Asset Submitted successfully";
                 return true;
