@@ -171,6 +171,7 @@
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
+    <Compile Include="Areas\Area\Models\AssetMasters.cs" />
     <Compile Include="Areas\Area\Models\AssetModel.cs" />
     <Compile Include="Areas\Area\Models\EmployeeMasters.cs" />
     <Compile Include="Areas\Area\Models\IdentityMasters.cs" />
@@ -196,10 +197,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\tblAssetCompany.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\tblAssetDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblAssetIssueDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblAssetType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblEmpDesignationMaster.cs">
@@ -229,6 +236,9 @@
     <Compile Include="EntityModel\tblVisitorVisitDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetAllActiveAssets_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetAllGate_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -236,6 +246,15 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\uspGetAllPurpose_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAssetDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAssetList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetEmployeeList_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\uspGetVisitorDetailsByGovId_Result.cs">
@@ -267,6 +286,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-select2.css" />
     <Content Include="Content\logincss\animate.css" />
     <Content Include="Content\logincss\animsition.min.css" />
     <Content Include="Content\assets\app\js\dashboard.js" />
@@ -598,6 +618,12 @@
     <Content Include="Areas\Area\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Area\Views\AssetManagement\AssetIssue.cshtml" />
     <Content Include="Areas\Area\Views\AssetManagement\AssetDetails.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\AssetMaster.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\AssetList.cshtml" />
+    <Content Include="Areas\Area\Views\EmployeeMaster\EmployeeMaster.cshtml" />
+    <Content Include="Areas\Area\Views\EmployeeMaster\EmployeeList.cshtml" />
+    <Content Include="Areas\Area\Views\EmployeeMaster\EditEmployee.cshtml" />
+    <Content Include="Areas\Area\Views\AssetMaster\EditAsset.cshtml" />
     <EntityDeploy Include="EntityModel\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -615,9 +641,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Area\Views\AssetMaster\AddAsset.cshtml" />
-    <Content Include="Areas\Area\Views\AssetMaster\AssetList.cshtml" />
-    <Content Include="Areas\Area\Views\EmployeeMaster\EmployeeMaster.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
