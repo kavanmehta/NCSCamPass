@@ -5,14 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DBNCSVisitorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAssetCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetCompanyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetCompanyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblAssetDetails">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssetModelId" Type="nvarchar" MaxLength="50" />
-          <Property Name="AssetName" Type="nvarchar" MaxLength="50" />
-          <Property Name="AssetType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetModelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetTypeID" Type="int" />
+          <Property Name="AssetCompanyID" Type="int" />
           <Property Name="ManufacturingDate" Type="datetime" />
           <Property Name="ExpiryDate" Type="datetime" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -36,6 +44,14 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblAssetType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetTypeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="AssetTypeName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblEmpDesignationMaster">
           <Key>
@@ -166,6 +182,30 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_tblAssetDetails_tblAssetCompany">
+          <End Role="tblAssetCompany" Type="Self.tblAssetCompany" Multiplicity="0..1" />
+          <End Role="tblAssetDetails" Type="Self.tblAssetDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetDetails">
+              <PropertyRef Name="AssetCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAssetDetails_tblAssetType">
+          <End Role="tblAssetType" Type="Self.tblAssetType" Multiplicity="0..1" />
+          <End Role="tblAssetDetails" Type="Self.tblAssetDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetDetails">
+              <PropertyRef Name="AssetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblAssetIssueDetails_tblAssetIssueDetails">
           <End Role="tblAssetDetails" Type="Self.tblAssetDetails" Multiplicity="0..1" />
           <End Role="tblAssetIssueDetails" Type="Self.tblAssetIssueDetails" Multiplicity="*" />
@@ -190,9 +230,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spInsertAssetIssueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmpId" Type="int" Mode="In" />
+          <Parameter Name="AssetId" Type="int" Mode="In" />
+          <Parameter Name="CreatedBy" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspGetAllActiveAssets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllGate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllIdentity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetAllPurpose" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspGetAssetDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspGetAssetList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetEmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetVisitorDetailsByGovId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -253,8 +301,10 @@
           <Parameter Name="CreatedDate" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="DBNCSVisitorModelStoreContainer">
+          <EntitySet Name="tblAssetCompany" EntityType="Self.tblAssetCompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAssetDetails" EntityType="Self.tblAssetDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblAssetIssueDetails" EntityType="Self.tblAssetIssueDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAssetType" EntityType="Self.tblAssetType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmpDesignationMaster" EntityType="Self.tblEmpDesignationMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmployeeDetails" EntityType="Self.tblEmployeeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblGateMaster" EntityType="Self.tblGateMaster" Schema="dbo" store:Type="Tables" />
@@ -264,6 +314,14 @@
           <EntitySet Name="tblVisitor" EntityType="Self.tblVisitor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorPersonalData" EntityType="Self.tblVisitorPersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAssetDetails_tblAssetCompany" Association="Self.FK_tblAssetDetails_tblAssetCompany">
+            <End Role="tblAssetCompany" EntitySet="tblAssetCompany" />
+            <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAssetDetails_tblAssetType" Association="Self.FK_tblAssetDetails_tblAssetType">
+            <End Role="tblAssetType" EntitySet="tblAssetType" />
+            <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblAssetIssueDetails_tblAssetIssueDetails" Association="Self.FK_tblAssetIssueDetails_tblAssetIssueDetails">
             <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
             <End Role="tblAssetIssueDetails" EntitySet="tblAssetIssueDetails" />
@@ -278,14 +336,23 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBNCSVisitorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblAssetCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetCompanyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetDetails" Relationship="Self.FK_tblAssetDetails_tblAssetCompany" FromRole="tblAssetCompany" ToRole="tblAssetDetails" />
+        </EntityType>
         <EntityType Name="tblAssetDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssetModelId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AssetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetTypeID" Type="Int32" />
+          <Property Name="AssetCompanyID" Type="Int32" />
           <Property Name="ManufacturingDate" Type="DateTime" Precision="3" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -294,6 +361,8 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsIssued" Type="Boolean" />
           <Property Name="LicesenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetCompany" Relationship="Self.FK_tblAssetDetails_tblAssetCompany" FromRole="tblAssetDetails" ToRole="tblAssetCompany" />
+          <NavigationProperty Name="tblAssetType" Relationship="Self.FK_tblAssetDetails_tblAssetType" FromRole="tblAssetDetails" ToRole="tblAssetType" />
           <NavigationProperty Name="tblAssetIssueDetails" Relationship="Self.FK_tblAssetIssueDetails_tblAssetIssueDetails" FromRole="tblAssetDetails" ToRole="tblAssetIssueDetails" />
         </EntityType>
         <EntityType Name="tblAssetIssueDetail">
@@ -311,6 +380,15 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblAssetDetail" Relationship="Self.FK_tblAssetIssueDetails_tblAssetIssueDetails" FromRole="tblAssetIssueDetails" ToRole="tblAssetDetails" />
+        </EntityType>
+        <EntityType Name="tblAssetType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssetTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAssetDetails" Relationship="Self.FK_tblAssetDetails_tblAssetType" FromRole="tblAssetType" ToRole="tblAssetDetails" />
         </EntityType>
         <EntityType Name="tblEmpDesignationMaster">
           <Key>
@@ -443,6 +521,30 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_tblAssetDetails_tblAssetCompany">
+          <End Role="tblAssetCompany" Type="Self.tblAssetCompany" Multiplicity="0..1" />
+          <End Role="tblAssetDetails" Type="Self.tblAssetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetDetails">
+              <PropertyRef Name="AssetCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAssetDetails_tblAssetType">
+          <End Role="tblAssetType" Type="Self.tblAssetType" Multiplicity="0..1" />
+          <End Role="tblAssetDetails" Type="Self.tblAssetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssetType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblAssetDetails">
+              <PropertyRef Name="AssetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblAssetIssueDetails_tblAssetIssueDetails">
           <End Role="tblAssetDetails" Type="Self.tblAssetDetail" Multiplicity="0..1" />
           <End Role="tblAssetIssueDetails" Type="Self.tblAssetIssueDetail" Multiplicity="*" />
@@ -468,8 +570,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBNCSVisitorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAssetCompanies" EntityType="Self.tblAssetCompany" />
           <EntitySet Name="tblAssetDetails" EntityType="Self.tblAssetDetail" />
           <EntitySet Name="tblAssetIssueDetails" EntityType="Self.tblAssetIssueDetail" />
+          <EntitySet Name="tblAssetTypes" EntityType="Self.tblAssetType" />
           <EntitySet Name="tblEmpDesignationMasters" EntityType="Self.tblEmpDesignationMaster" />
           <EntitySet Name="tblEmployeeDetails" EntityType="Self.tblEmployeeDetail" />
           <EntitySet Name="tblGateMasters" EntityType="Self.tblGateMaster" />
@@ -479,6 +583,14 @@
           <EntitySet Name="tblVisitors" EntityType="Self.tblVisitor" />
           <EntitySet Name="tblVisitorPersonalDatas" EntityType="Self.tblVisitorPersonalData" />
           <EntitySet Name="tblVisitorVisitDetails" EntityType="Self.tblVisitorVisitDetail" />
+          <AssociationSet Name="FK_tblAssetDetails_tblAssetCompany" Association="Self.FK_tblAssetDetails_tblAssetCompany">
+            <End Role="tblAssetCompany" EntitySet="tblAssetCompanies" />
+            <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAssetDetails_tblAssetType" Association="Self.FK_tblAssetDetails_tblAssetType">
+            <End Role="tblAssetType" EntitySet="tblAssetTypes" />
+            <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblAssetIssueDetails_tblAssetIssueDetails" Association="Self.FK_tblAssetIssueDetails_tblAssetIssueDetails">
             <End Role="tblAssetDetails" EntitySet="tblAssetDetails" />
             <End Role="tblAssetIssueDetails" EntitySet="tblAssetIssueDetails" />
@@ -487,9 +599,17 @@
             <End Role="tblEmpDesignationMaster" EntitySet="tblEmpDesignationMasters" />
             <End Role="tblEmployeeDetails" EntitySet="tblEmployeeDetails" />
           </AssociationSet>
+          <FunctionImport Name="spInsertAssetIssueDetails">
+            <Parameter Name="EmpId" Mode="In" Type="Int32" />
+            <Parameter Name="AssetId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetAllActiveAssets" ReturnType="Collection(DBNCSVisitorModel.uspGetAllActiveAssets_Result)" />
           <FunctionImport Name="uspGetAllGate" ReturnType="Collection(DBNCSVisitorModel.uspGetAllGate_Result)" />
           <FunctionImport Name="uspGetAllIdentity" ReturnType="Collection(DBNCSVisitorModel.uspGetAllIdentity_Result)" />
           <FunctionImport Name="uspGetAllPurpose" ReturnType="Collection(DBNCSVisitorModel.uspGetAllPurpose_Result)" />
+          <FunctionImport Name="uspGetAssetDetails" ReturnType="Collection(DBNCSVisitorModel.uspGetAssetDetails_Result)" />
+          <FunctionImport Name="uspGetAssetList" ReturnType="Collection(DBNCSVisitorModel.uspGetAssetList_Result)" />
           <FunctionImport Name="uspGetEmployeeList" ReturnType="Collection(DBNCSVisitorModel.uspGetEmployeeList_Result)" />
           <FunctionImport Name="uspGetVisitorDetails" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetails_Result)" />
           <FunctionImport Name="uspGetVisitorDetailsByGovId" ReturnType="Collection(DBNCSVisitorModel.uspGetVisitorDetailsByGovId_Result)">
@@ -550,6 +670,20 @@
             <Parameter Name="CreatedDate" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="uspGetAllActiveAssets_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="AssetModelName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="AssetTypeID" Nullable="true" />
+          <Property Type="Int32" Name="AssetCompanyID" Nullable="true" />
+          <Property Type="DateTime" Name="ManufacturingDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ExpiryDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsIssued" Nullable="true" />
+          <Property Type="String" Name="LicesenceNo" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="uspGetAllGate_Result">
           <Property Type="String" Name="GateName" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Gate" Nullable="false" />
@@ -561,6 +695,35 @@
         <ComplexType Name="uspGetAllPurpose_Result">
           <Property Type="String" Name="PurposeText" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Purpose" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="uspGetAssetDetails_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="AssetModelName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="AssetCompanyID" Nullable="true" />
+          <Property Type="Int32" Name="AssetTypeID" Nullable="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ExpiryDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsIssued" Nullable="true" />
+          <Property Type="String" Name="LicesenceNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ManufacturingDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ModifiedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="AssetIssueDateTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="AssetSubmitDateTime" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsSubmited" Nullable="true" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="uspGetAssetList_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="AssetTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AssetCompanyName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AssestName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ManufacturingDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ExpiryDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LicesenceNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ModifiedDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="uspGetEmployeeList_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -698,13 +861,22 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBNCSVisitorModelStoreContainer" CdmEntityContainer="DBNCSVisitorEntities">
+          <EntitySetMapping Name="tblAssetCompanies">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetCompany">
+              <MappingFragment StoreEntitySet="tblAssetCompany">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AssetCompanyCode" ColumnName="AssetCompanyCode" />
+                <ScalarProperty Name="AssetCompanyName" ColumnName="AssetCompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblAssetDetails">
             <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetDetail">
               <MappingFragment StoreEntitySet="tblAssetDetails">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AssetModelId" ColumnName="AssetModelId" />
-                <ScalarProperty Name="AssetName" ColumnName="AssetName" />
-                <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+                <ScalarProperty Name="AssetModelName" ColumnName="AssetModelName" />
+                <ScalarProperty Name="AssetTypeID" ColumnName="AssetTypeID" />
+                <ScalarProperty Name="AssetCompanyID" ColumnName="AssetCompanyID" />
                 <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
                 <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -729,6 +901,15 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssetTypes">
+            <EntityTypeMapping TypeName="DBNCSVisitorModel.tblAssetType">
+              <MappingFragment StoreEntitySet="tblAssetType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AssetTypeCode" ColumnName="AssetTypeCode" />
+                <ScalarProperty Name="AssetTypeName" ColumnName="AssetTypeName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -870,6 +1051,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spInsertAssetIssueDetails" FunctionName="DBNCSVisitorModel.Store.spInsertAssetIssueDetails" />
+          <FunctionImportMapping FunctionImportName="uspGetAllActiveAssets" FunctionName="DBNCSVisitorModel.Store.uspGetAllActiveAssets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllActiveAssets_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AssetModelName" ColumnName="AssetModelName" />
+                <ScalarProperty Name="AssetTypeID" ColumnName="AssetTypeID" />
+                <ScalarProperty Name="AssetCompanyID" ColumnName="AssetCompanyID" />
+                <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsIssued" ColumnName="IsIssued" />
+                <ScalarProperty Name="LicesenceNo" ColumnName="LicesenceNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspGetAllGate" FunctionName="DBNCSVisitorModel.Store.uspGetAllGate">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllGate_Result">
@@ -891,6 +1091,43 @@
               <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAllPurpose_Result">
                 <ScalarProperty Name="PurposeText" ColumnName="PurposeText" />
                 <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetAssetDetails" FunctionName="DBNCSVisitorModel.Store.uspGetAssetDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAssetDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AssetModelName" ColumnName="AssetModelName" />
+                <ScalarProperty Name="AssetCompanyID" ColumnName="AssetCompanyID" />
+                <ScalarProperty Name="AssetTypeID" ColumnName="AssetTypeID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="IsIssued" ColumnName="IsIssued" />
+                <ScalarProperty Name="LicesenceNo" ColumnName="LicesenceNo" />
+                <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AssetIssueDateTime" ColumnName="AssetIssueDateTime" />
+                <ScalarProperty Name="AssetSubmitDateTime" ColumnName="AssetSubmitDateTime" />
+                <ScalarProperty Name="IsSubmited" ColumnName="IsSubmited" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetAssetList" FunctionName="DBNCSVisitorModel.Store.uspGetAssetList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBNCSVisitorModel.uspGetAssetList_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AssetTypeName" ColumnName="AssetTypeName" />
+                <ScalarProperty Name="AssetCompanyName" ColumnName="AssetCompanyName" />
+                <ScalarProperty Name="AssestName" ColumnName="AssestName" />
+                <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="LicesenceNo" ColumnName="LicesenceNo" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
