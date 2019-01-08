@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ReceptionProcam.Areas.Area.Models;
 
 namespace ReceptionProcam.Areas.Area.Controllers
 {
@@ -42,11 +43,16 @@ namespace ReceptionProcam.Areas.Area.Controllers
         public Boolean SubmitAsset(int id)
         {
             var result = objVisEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
+            var assetTbl = objVisEnti.tblAssetDetails.SingleOrDefault(b => b.ID == id);
+           
             if (result != null)
             {
                 result.IsSubmited = true;
                 result.AssetSubmitDateTime = DateTime.Now;
-
+                if (assetTbl != null)
+                {
+                    assetTbl.IsIssued = false;
+                }
                 objVisEnti.SaveChanges();
                 TempData["SuccessSubmit"] = "Asset Submitted successfully";
                 return true;
@@ -56,10 +62,42 @@ namespace ReceptionProcam.Areas.Area.Controllers
                 return false;
             }
         }
+     
         [HttpGet]
         public ActionResult AssetIssue()
         {
+            getAllAssets();
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AssetIssue(clsAssetIssueDetails objclsAssetIssueDetails)
+        {
+            try
+            {
+                foreach (var i in objclsAssetIssueDetails.AssetId)
+                {
+                    var j = objVisEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "123");
+                }
+                TempData["Success"] = "Assets assigned to employee succesfully";
+            }
+            catch
+            {
+                TempData["Success"] = "Assets assigned to employee is failed";
+            }
+            return RedirectToAction("AssetIssue");
+        }
+        [HttpGet]
+        public void getAllAssets()
+        {
+            try
+            {
+                ViewBag.AllAssets = new SelectList(objVisEnti.uspGetAllActiveAssets(), "ID", "AssetModelName", 0);
+            }
+            catch
+            {
+
+            }
+        } 
     }
 }

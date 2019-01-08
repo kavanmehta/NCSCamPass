@@ -173,6 +173,7 @@
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
     <Compile Include="Areas\Area\Models\AssetMasters.cs" />
     <Compile Include="Areas\Area\Models\AssetModel.cs" />
+    <Compile Include="Areas\Area\Models\clsAssetIssueDetails.cs" />
     <Compile Include="Areas\Area\Models\EmployeeMasters.cs" />
     <Compile Include="Areas\Area\Models\IdentityMasters.cs" />
     <Compile Include="Areas\Area\Models\PurposeMasters.cs" />
@@ -286,7 +287,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-select2.css" />
     <Content Include="Content\logincss\animate.css" />
     <Content Include="Content\logincss\animsition.min.css" />
     <Content Include="Content\assets\app\js\dashboard.js" />
@@ -537,8 +537,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\datepicker.css" />
-    <Content Include="Content\datepicker.min.css" />
     <Content Include="Content\logincss\hamburgers.min.css" />
     <Content Include="Content\logincss\main.css" />
     <Content Include="Content\logincss\util.css" />
@@ -648,7 +646,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.webcam.js" />
     <Content Include="Scripts\jquery.webcam.min.js" />
-    <Content Include="Scripts\jquerysession.js" />
     <Content Include="Scripts\jscam.swf" />
     <Content Include="Scripts\jscam_canvas_only.swf" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -659,6 +656,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\App.js" />
+    <Content Include="Scripts\select2.min.css" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
