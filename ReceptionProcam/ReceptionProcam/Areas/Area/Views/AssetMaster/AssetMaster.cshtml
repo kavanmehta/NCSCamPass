@@ -8,45 +8,46 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlAssetTypeId').on('change', function () {
+                if (this.value == '2') {
+                    $("#softwareProperties").show();
+                }
+                else {
+                    $("#softwareProperties").hide();
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                liveSearch: true,
+                //showSubtext: true
+            });
+        });
+
+        $(document).ready(function () {
+
+            $('#txtManufactDate').datetimepicker({
+                autoclose: true,
+                //startDate: new Date()
+            });
+
+        });
+
+        $(document).ready(function () {
+
+            $('#txtExpiryDate').datetimepicker({
+                autoclose: true,
+                startDate: new Date()
+            });
+
+        });
+    </script>
 }
 @*<link href="~/Content/bootstrap-select2.css" rel="stylesheet" />*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#ddlAssetTypeId').on('change', function () {
-            if (this.value == '2'){
-                $("#softwareProperties").show();
-            }
-            else{
-                $("#softwareProperties").hide();
-            }
-        });
-    });
 
-    $(document).ready(function () {
-        $('.selectpicker').selectpicker({
-            liveSearch: true,
-            //showSubtext: true
-        });
-    });
-
-    $(document).ready(function () {
-
-        $('#txtManufactDate').datetimepicker({
-            autoclose: true,
-            //startDate: new Date()
-        });
-
-    });
-
-    $(document).ready(function () {
-
-        $('#txtExpiryDate').datetimepicker({
-            autoclose: true,
-            startDate: new Date()
-        });
-
-    });
-</script>
 @if (TempData["Success"] != null)
 {
     <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
@@ -73,7 +74,7 @@
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.AssetTypeID, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownListFor(model => model.AssetTypeID, ViewBag.AssetTypeList as SelectList,"Please Select asset type", new { Id = "ddlAssetTypeId", autocomplete = "off", @class = "form-control m-input"})
+                    @Html.DropDownListFor(model => model.AssetTypeID, ViewBag.AssetTypeList as SelectList, "Please Select asset type", new { Id = "ddlAssetTypeId", autocomplete = "off", @class = "form-control m-input" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.AssetTypeID, "", new { @class = "text-danger" })</p>
                 </div>
             </div>
@@ -118,11 +119,11 @@
                 </div>
             </div>
             @*<div class="form-group m-form__group row">
-                <div class="col-lg-6">
-                    @Html.LabelFor(model => model.IsIssued)
-                    @Html.CheckBoxFor(model => model.IsIssued)
-                </div>
-            </div>*@
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.IsIssued)
+                        @Html.CheckBoxFor(model => model.IsIssued)
+                    </div>
+                </div>*@
         </div>
         <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
             <div class="m-form__actions m-form__actions--solid">

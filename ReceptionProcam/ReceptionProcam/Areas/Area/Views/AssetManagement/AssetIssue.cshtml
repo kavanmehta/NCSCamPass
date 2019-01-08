@@ -1,29 +1,35 @@
 ﻿@model ReceptionProcam.Areas.Area.Models.clsAssetIssueDetails
 
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#hdnSession').attr("value", '@TempData["CapturedImageTemp"]');
-    });
-</script>
-@section scripts
-{
-    <link href="~/Scripts/select2.min.css" rel="stylesheet" />
-    <script src="~/Scripts/select2.min.js"></script>
-    <script src="~/Scripts/visitor.js"></script>
-    @Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "AssetsIssue";
+    Layout = "~/Areas/Area/Views/Shared/_Layout.cshtml";
 }
 
-
-<script type="text/javascript">
-    $(function () {
-        $(".js-example-placeholder-multiple").select2({
-            placeholder: "Select",
-            allowClear: true
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $(".js-example-placeholder-multiple").select2({
+                placeholder: "Select",
+                allowClear: true
+            });
+            $('.selectpicker').selectpicker({
+                liveSearch: true,
+                //showSubtext: true
+            });
         });
-    });
-</script>
+    </script>
+
+}
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+@if (TempData["SuccessSubmit"] != null)
+{
+     <p class="alert alert-success" id="successMessage">@TempData["SuccessSubmit"]</p>
+}
 @using (Html.BeginForm("AssetIssue", "AssetManagement", new { }))
 {
     @Html.AntiForgeryToken()
@@ -45,12 +51,11 @@
         <div class="m-portlet__body">
 
             <div class="form-group m-form__group row">
-
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     @Html.LabelFor(model => model.EmpId, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @*     @Html.DropDownListFor(m => m.EmpId, ViewBag.GetAllEmployee as SelectList, new { Id = "ddlEmployee", autocomplete = "off", @class = "form-control m-input" })*@
-
-                    @Html.DropDownListFor(model => model.EmpId, new List<SelectListItem> { new SelectListItem { Text = "Kavan M", Value = "001" }, new SelectListItem { Text = "Nilambari S", Value = "002" }, new SelectListItem { Text = "Suraj M", Value = "003" } }, new { Id = "ddlEmployee", autocomplete = "off", @class = "form-control m-input" })
+                    @Html.DropDownListFor(model => model.EmpId,
+                                            (IEnumerable<SelectListItem>)ViewBag.EmployeeList,
+                                            "--Select Employee--", new { @Id = "employeeID", autocomplete = "off", @class = "form-control selectpicker" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.EmpId, "", new { @class = "text-danger" })</p>
                 </div>
 

@@ -10,7 +10,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
 {
     public class AssetManagementController : Controller
     {
-        DBNCSVisitorEntities objVisEnti = new DBNCSVisitorEntities();
+        DBNCSVisitorEntities objAdminEnti = new DBNCSVisitorEntities();
         // GET: Area/AssetManagement
         [HttpGet]
         public ActionResult AssetDetails()
@@ -42,8 +42,8 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpPost]
         public Boolean SubmitAsset(int id)
         {
-            var result = objVisEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
-            var assetTbl = objVisEnti.tblAssetDetails.SingleOrDefault(b => b.ID == id);
+            var result = objAdminEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
+            var assetTbl = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == id);
            
             if (result != null)
             {
@@ -53,7 +53,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
                 {
                     assetTbl.IsIssued = false;
                 }
-                objVisEnti.SaveChanges();
+                objAdminEnti.SaveChanges();
                 TempData["SuccessSubmit"] = "Asset Submitted successfully";
                 return true;
             }
@@ -67,6 +67,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
         public ActionResult AssetIssue()
         {
             getAllAssets();
+            getAllEmployeeList();
             return View();
         }
 
@@ -77,7 +78,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
             {
                 foreach (var i in objclsAssetIssueDetails.AssetId)
                 {
-                    var j = objVisEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "123");
+                    var j = objAdminEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "admin");
                 }
                 TempData["Success"] = "Assets assigned to employee succesfully";
             }
@@ -92,12 +93,18 @@ namespace ReceptionProcam.Areas.Area.Controllers
         {
             try
             {
-                ViewBag.AllAssets = new SelectList(objVisEnti.uspGetAllActiveAssets(), "ID", "AssetModelName", 0);
+                ViewBag.AllAssets = new SelectList(objAdminEnti.uspGetAllActiveAssets(), "ID", "AssetModelName", 0);
             }
             catch
             {
 
             }
-        } 
+        }
+
+        [HttpGet]
+        public void getAllEmployeeList()
+        {
+            ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
+        }
     }
 }
