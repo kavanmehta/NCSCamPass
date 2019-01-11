@@ -104,7 +104,9 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpGet]
         public void getAllEmployeeList()
         {
-            ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
+           //ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
+            ViewBag.EmployeeList = new SelectList(objAdminEnti.uspGetActiveEmployeeList(), "ID", "EmpId", 0);
+                        
         }
     }
 }

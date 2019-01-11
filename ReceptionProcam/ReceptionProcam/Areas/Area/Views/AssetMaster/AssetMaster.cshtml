@@ -47,6 +47,11 @@
     </script>
 }
 @*<link href="~/Content/bootstrap-select2.css" rel="stylesheet" />*@
+<script>
+    $(document).ready(function () {
+        $("#successMessage").delay("2000").fadeOut();
+    });
+</script>
 
 @if (TempData["Success"] != null)
 {

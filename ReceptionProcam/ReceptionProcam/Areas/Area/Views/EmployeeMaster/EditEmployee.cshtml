@@ -3,6 +3,12 @@
     ViewBag.Title = "EditEmployee";
     Layout = "~/Areas/Area/Views/Shared/_Layout.cshtml";
 }
+<script>
+    $(document).ready(function () {
+        $("#successMessage").delay("2000").fadeOut();
+    });
+</script>
+
 @if (TempData["Success"] != null)
 {
     <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>

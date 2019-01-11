@@ -24,74 +24,7 @@
         height: auto;
     }
 </style>
-@*@{
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            listItems.Add(new SelectListItem
-                 {
-                     Text = "Gate 01 - RECEPTION",
-                     Value = "Gate 01 - RECEPTION"
-                 });
-            listItems.Add(new SelectListItem
-                 {
-                     Text = "Gate 02 - RECEPITON",
-                     Value = "Gate 02 - RECEPITON",
-                     Selected = true
-                 });
-            listItems.Add(new SelectListItem
-                 {
-                     Text = "Gate 03 - RECEPITON ",
-                     Value = "Gate 03 - RECEPITON"
-                 });
-        }
-        @{
-            List<SelectListItem> listGate = new List<SelectListItem>();
-            listGate.Add(new SelectListItem
-                 {
-                     Text = "Adhaar Card",
-                     Value = "1",
-                     Selected = true
-                 });
-            listGate.Add(new SelectListItem
-                 {
-                     Text = "Pan Card",
-                     Value = "2"
-                 });
-            listGate.Add(new SelectListItem
-                 {
-                     Text = "Voter Card",
-                     Value = "3"
-                 });
-            listGate.Add(new SelectListItem
-            {
-                Text = "Passport",
-                Value = "4"
-            });
-        }
 
-        @{
-        List<SelectListItem> listPurpose = new List<SelectListItem>();
-        listPurpose.Add(new SelectListItem
-        {
-            Text = "--Please select Purpose--",
-            Value = "000",
-            Selected = true
-        });
-        listPurpose.Add(new SelectListItem
-             {
-                 Text = "Interview",
-                 Value = "001",
-             });
-        listPurpose.Add(new SelectListItem
-             {
-                 Text = "Meeting",
-                 Value = "002"
-             });
-        listPurpose.Add(new SelectListItem
-             {
-                 Text = "Other",
-                 Value = "003"
-             });
-    }*@
 @{
     List<SelectListItem> listDays = new List<SelectListItem>();
     listDays.Add(new SelectListItem
@@ -132,7 +65,11 @@
 
     });
 }
-
+<script>
+    $(document).ready(function () {
+        $("#successMessage").delay("2000").fadeOut();
+    });
+</script>
 
 @if (TempData["Success"] != null)
 {

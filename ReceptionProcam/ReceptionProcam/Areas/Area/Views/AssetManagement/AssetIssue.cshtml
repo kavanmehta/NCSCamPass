@@ -20,6 +20,11 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#successMessage").delay("2000").fadeOut();
+        });
+    </script>
 
 }
 @if (TempData["Success"] != null)
@@ -28,7 +33,7 @@
 }
 @if (TempData["SuccessSubmit"] != null)
 {
-     <p class="alert alert-success" id="successMessage">@TempData["SuccessSubmit"]</p>
+    <p class="alert alert-success" id="successMessage">@TempData["SuccessSubmit"]</p>
 }
 @using (Html.BeginForm("AssetIssue", "AssetManagement", new { }))
 {
