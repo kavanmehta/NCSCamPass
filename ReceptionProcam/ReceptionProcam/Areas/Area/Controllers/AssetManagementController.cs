@@ -42,8 +42,8 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpPost]
         public Boolean SubmitAsset(int id)
         {
-            var result = objAdminEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
-            var assetTbl = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == id);
+            var result = objAdminEnti.tblAssetIssueDetails.SingleOrDefault(b => b.ID == id);
+            var assetTbl = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == result.AssetId);
            
             if (result != null)
             {

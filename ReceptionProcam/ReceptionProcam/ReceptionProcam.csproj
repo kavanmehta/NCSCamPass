@@ -237,6 +237,9 @@
     <Compile Include="EntityModel\tblVisitorVisitDetail.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetActiveEmployeeList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetAllActiveAssets_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -569,6 +572,7 @@
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="Content\assets\vendors\base\fonts\summernote\summernote.woff" />
+    <Content Include="Scripts\AssetDetails.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -638,6 +642,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\NCSI.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
