@@ -67,11 +67,22 @@
             </div>
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
-                    @Html.LabelFor(model => model.AssetId, htmlAttributes: new { })<span class="text-danger">*</span><br />
-                    @Html.ListBoxFor(model => model.AssetId, ViewBag.AllAssets as SelectList, new { Id = "lbAssets", @class = "form-control js-example-placeholder-multiple" })
+                    @Html.LabelFor(model => model.HWAssetId, htmlAttributes: new { })<span class="text-danger">*</span><br />
+                    @Html.ListBoxFor(model => model.HWAssetId, ViewBag.AllHWAssets as SelectList, new { Id = "lbHWAssets", @class = "form-control js-example-placeholder-multiple" })
                 </div>
             </div>
-
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.SWAssetId, htmlAttributes: new { })<span class="text-danger">*</span><br />
+                    @Html.ListBoxFor(model => model.SWAssetId, ViewBag.AllSWAssets as SelectList, new { Id = "lbSWAssets", @class = "form-control js-example-placeholder-multiple" })
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
+                    @Html.LabelFor(model => model.NWAssetId, htmlAttributes: new { })<span class="text-danger">*</span><br />
+                    @Html.ListBoxFor(model => model.NWAssetId, ViewBag.AllNWAssets as SelectList, new { Id = "lbNWAssets", @class = "form-control js-example-placeholder-multiple" })
+                </div>
+            </div>
             @*@Html.HiddenFor(model => model.TimeIn, htmlAttributes: new { @Id = "hfTimeIn" })*@
         </div>
         <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">

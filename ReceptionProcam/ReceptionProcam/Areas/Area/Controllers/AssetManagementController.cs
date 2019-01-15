@@ -44,7 +44,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
         {
             var result = objAdminEnti.tblAssetIssueDetails.SingleOrDefault(b => b.ID == id);
             var assetTbl = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == result.AssetId);
-           
+
             if (result != null)
             {
                 result.IsSubmited = true;
@@ -62,7 +62,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
                 return false;
             }
         }
-     
+
         [HttpGet]
         public ActionResult AssetIssue()
         {
@@ -76,9 +76,26 @@ namespace ReceptionProcam.Areas.Area.Controllers
         {
             try
             {
-                foreach (var i in objclsAssetIssueDetails.AssetId)
+                if (objclsAssetIssueDetails.HWAssetId != null)
                 {
-                    var j = objAdminEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "admin");
+                        foreach (var i in objclsAssetIssueDetails.HWAssetId)
+                        {
+                            var j = objAdminEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "admin");
+                        }
+                }
+                if (objclsAssetIssueDetails.SWAssetId !=null)
+                {
+                    foreach (var i in objclsAssetIssueDetails.SWAssetId)
+                    {
+                        var j = objAdminEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "admin");
+                    }
+                }
+                if (objclsAssetIssueDetails.NWAssetId != null)
+                {
+                    foreach (var i in objclsAssetIssueDetails.NWAssetId)
+                    {
+                        var j = objAdminEnti.spInsertAssetIssueDetails(objclsAssetIssueDetails.EmpId, i, "admin");
+                    }
                 }
                 TempData["Success"] = "Assets assigned to employee succesfully";
             }
@@ -91,22 +108,17 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpGet]
         public void getAllAssets()
         {
-            try
-            {
-                ViewBag.AllAssets = new SelectList(objAdminEnti.uspGetAllActiveAssets(), "ID", "AssetModelName", 0);
-            }
-            catch
-            {
+            ViewBag.AllHWAssets = new SelectList(objAdminEnti.uspGetAllActiveHardwareAssets(), "ID", "AssetModelName", 0);
+            ViewBag.AllSWAssets = new SelectList(objAdminEnti.uspGetAllActiveSoftwareAssets(), "ID", "AssetModelName", 0);
+            ViewBag.AllNWAssets = new SelectList(objAdminEnti.uspGetAllActiveNetworkAssets(), "ID", "AssetModelName", 0);
 
-            }
         }
-
         [HttpGet]
         public void getAllEmployeeList()
         {
-           //ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
+            //ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
             ViewBag.EmployeeList = new SelectList(objAdminEnti.uspGetActiveEmployeeList(), "ID", "EmpId", 0);
-                        
+
         }
     }
 }

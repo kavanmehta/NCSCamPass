@@ -12,8 +12,15 @@ namespace ReceptionProcam.Areas.Area.Models
         [DisplayName("Employee Name")]
         public Nullable<int> EmpId { get; set; }
 
-        [DisplayName("Asset Name")]
-        public int[] AssetId { get; set; }
+        [DisplayName("Hardware Name")]
+        public int[] HWAssetId { get; set; }
+
+        [DisplayName("Software Name")]
+        public int[] SWAssetId { get; set; }
+
+        [DisplayName("Network Name")]
+        public int[] NWAssetId { get; set; }
+ 
         public Nullable<System.DateTime> AssetIssueDateTime { get; set; }
         public Nullable<System.DateTime> AssetSubmitDateTime { get; set; }
         public Nullable<bool> IsSubmited { get; set; }
@@ -21,5 +28,6 @@ namespace ReceptionProcam.Areas.Area.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+
     }
 }

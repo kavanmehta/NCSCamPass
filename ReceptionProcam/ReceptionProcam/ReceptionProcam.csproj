@@ -243,6 +243,15 @@
     <Compile Include="EntityModel\uspGetAllActiveAssets_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetAllActiveHardwareAssets_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAllActiveNetworkAssets_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAllActiveSoftwareAssets_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetAllGate_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

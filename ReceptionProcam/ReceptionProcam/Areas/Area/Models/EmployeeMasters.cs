@@ -22,7 +22,7 @@ namespace ReceptionProcam.Areas.Area.Models
 
         [DisplayName("Employee Designation")]
         //[Required(ErrorMessage = "Please select employee designation")]
-        public int EmpDesignationID { get; set; }
+        public int? EmpDesignationID { get; set; }
 
         [DisplayName("Employee Department")]
         //[Required(ErrorMessage = "Please select employee department")]
