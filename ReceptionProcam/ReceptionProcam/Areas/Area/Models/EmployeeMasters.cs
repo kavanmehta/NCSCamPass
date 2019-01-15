@@ -13,15 +13,19 @@ namespace ReceptionProcam.Areas.Area.Models
         public int ID { get; set; }
 
         [DisplayName("Employee Code")]
+        [Required(ErrorMessage = "Please enter employee code")]
         public string EmpCode { get; set; }
 
         [DisplayName("Employee Name")]
+        [Required(ErrorMessage = "Please enter employee name")]
         public string EmpName { get; set; }
 
         [DisplayName("Employee Designation")]
-        public Nullable<int> EmpDesignationID { get; set; }
+        //[Required(ErrorMessage = "Please select employee designation")]
+        public int EmpDesignationID { get; set; }
 
         [DisplayName("Employee Department")]
+        //[Required(ErrorMessage = "Please select employee department")]
         public string EmpDept { get; set; }
 
         [DisplayName("Mobile No")]
@@ -34,6 +38,7 @@ namespace ReceptionProcam.Areas.Area.Models
         public DateTime? ModifiedDate { get; set; }
 
         [DisplayName("Is Employee Active")]
+        [Required(ErrorMessage = "Is employee active or not!!")]
         public bool IsActive { get; set; }
         public virtual tblEmpDesignationMaster tblEmpDesignationMaster { get; set; }
 

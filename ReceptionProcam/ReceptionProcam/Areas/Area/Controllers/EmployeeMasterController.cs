@@ -28,6 +28,8 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpPost]
         public ActionResult EmployeeMaster(EmployeeMasters objMaster)
         {
+            //if (ModelState.IsValid)
+            //{
                 tblEmployeeDetail master = new tblEmployeeDetail();
                 master.EmpName = objMaster.EmpName;
                 master.EmpCode = objMaster.EmpCode;
@@ -41,8 +43,8 @@ namespace ReceptionProcam.Areas.Area.Controllers
                 objAdminEnti.SaveChanges();
                 TempData["Success"] = "Employee added successfully.";
                 return RedirectToAction("EmployeeMaster");
-            
-           // return View();
+            //}
+            //return View();
         }
 
         [HttpGet]
