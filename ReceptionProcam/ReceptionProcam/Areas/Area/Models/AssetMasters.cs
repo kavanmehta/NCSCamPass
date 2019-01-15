@@ -18,6 +18,12 @@ namespace ReceptionProcam.Areas.Area.Models
         [DisplayName("Asset Company")]
         public int AssetCompanyID { get; set; }
 
+        [DisplayName("Other Asset Company Name")]
+        public string OtherAssetCompanyName { get; set; }
+
+        [DisplayName("Asset Serial Number")]
+        public string AssetSerialNo { get; set; }
+
         [DisplayName("Asset Manufacturing Date")]
         public DateTime? ManufacturingDate { get; set; }
 

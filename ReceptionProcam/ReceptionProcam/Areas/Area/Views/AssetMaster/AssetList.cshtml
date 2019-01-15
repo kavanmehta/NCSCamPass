@@ -26,8 +26,10 @@
             <table class="table table-striped- table-bordered table-hover table-checkable" id="Visitors">
                 <thead>
                     <tr>
+                        <th>@Html.DisplayName("Asset Serial No")</th>
                         <th>@Html.DisplayName("Asset Type")</th>
                         <th>@Html.DisplayName("Asset Company")</th>
+                        <th>@Html.DisplayName("Other Asset Company")</th>
                         <th>@Html.DisplayName("Asset Name")</th>
                         <th>@Html.DisplayName("Manufacturing Date")</th>
                         <th>@Html.DisplayName("Licesence No ")</th>
@@ -41,8 +43,10 @@
                     @foreach (var item in ViewBag.AllAssetDetails)
                     {
                         <tr>
+                            <td>@item.AssetSerialNo</td>
                             <td>@item.AssetTypeName</td>
                             <td>@item.AssetCompanyName</td>
+                            <td>@item.OtherAssetCompanyName</td>
                             <td>@item.AssestName</td>
                             <td>@item.ManufacturingDate</td>
                             <td>@item.LicesenceNo</td>

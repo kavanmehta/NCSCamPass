@@ -18,7 +18,18 @@ namespace ReceptionProcam.Areas.Area.Controllers
         {
             GetAssetCompanyList();
             GetAssetTypeList();
-            return View();
+            AssetMasters personal = new AssetMasters();
+            var lastSerialNumber = objAdminEnti.tblAssetDetails.OrderByDescending(c => c.ID).FirstOrDefault();
+            var date = DateTime.Now.ToString("yyyyMMdd");
+            if (lastSerialNumber == null)
+            {
+                personal.AssetSerialNo = "NCSI" + Convert.ToString(date) + "1";
+            }
+            else
+            {
+                personal.AssetSerialNo = "NCSI" + Convert.ToString(date) + (Convert.ToInt32(lastSerialNumber.ID) + 1);
+            }
+            return View(personal);
         }
 
         public void GetAssetCompanyList()
@@ -34,12 +45,14 @@ namespace ReceptionProcam.Areas.Area.Controllers
         public ActionResult AssetMaster(AssetMasters objMaster)
         {
             tblAssetDetail master = new tblAssetDetail();
+            master.AssetSerialNo = objMaster.AssetSerialNo;
             master.AssetTypeID = objMaster.AssetTypeID;
             master.AssetCompanyID = objMaster.AssetCompanyID;
             master.AssetModelName = objMaster.AssetModelName;
             master.ManufacturingDate = objMaster.ManufacturingDate;
             master.ExpiryDate = objMaster.ExpiryDate;
             master.LicesenceNo = objMaster.LicesenceNo;
+            master.OtherAssetCompanyName = objMaster.OtherAssetCompanyName;
             master.CreatedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
             master.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
             master.CreatedBy = "admin";
@@ -64,7 +77,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
         public ActionResult EditAsset(int Id)
         {
             var assetData = objAdminEnti.tblAssetDetails.Where(s => s.ID == Id).FirstOrDefault();
-            AssetMasters assetDtls = new AssetMasters { ID = assetData.ID, AssetTypeID = Convert.ToInt32(assetData.AssetTypeID), AssetCompanyID = Convert.ToInt32(assetData.AssetCompanyID), AssetModelName = assetData.AssetModelName, ManufacturingDate = assetData.ManufacturingDate, ExpiryDate = assetData.ExpiryDate , LicesenceNo = assetData.LicesenceNo };
+            AssetMasters assetDtls = new AssetMasters { ID = assetData.ID, AssetTypeID = Convert.ToInt32(assetData.AssetTypeID), AssetCompanyID = Convert.ToInt32(assetData.AssetCompanyID), AssetModelName = assetData.AssetModelName, ManufacturingDate = assetData.ManufacturingDate, ExpiryDate = assetData.ExpiryDate , LicesenceNo = assetData.LicesenceNo , OtherAssetCompanyName = assetData.OtherAssetCompanyName , AssetSerialNo = assetData.AssetSerialNo};
             GetAssetCompanyList();
             GetAssetTypeList();
             return View(assetDtls);
@@ -76,12 +89,14 @@ namespace ReceptionProcam.Areas.Area.Controllers
             var dbAsset = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == Id);
             if (dbAsset != null)
             {
+                dbAsset.AssetSerialNo = objMaster.AssetSerialNo;
                 dbAsset.AssetTypeID = objMaster.AssetTypeID;
                 dbAsset.AssetCompanyID = objMaster.AssetCompanyID;
                 dbAsset.AssetModelName = objMaster.AssetModelName;
                 dbAsset.ManufacturingDate = objMaster.ManufacturingDate;
                 dbAsset.ExpiryDate = objMaster.ExpiryDate;
                 dbAsset.LicesenceNo = objMaster.LicesenceNo;
+                dbAsset.OtherAssetCompanyName = objMaster.OtherAssetCompanyName;
                 dbAsset.ModifiedDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd-MM-yyyy hh:mm"));
                 dbAsset.CreatedBy = "admin";
                 objAdminEnti.tblAssetDetails.Add(dbAsset);

@@ -26,6 +26,14 @@
 
 
         });
+        $('#assetCompanyID').on('change', function () {
+            if (this.value == '6' || this.value == 'Other') {
+                $('#otherAssets').show();
+            }
+            else {
+                $('#otherAssets').hide();
+            }
+        })
     });
 
     $(document).ready(function () {
@@ -57,6 +65,9 @@
     $(document).ready(function () {
         $("#successMessage").delay("2000").fadeOut();
     });
+    $(document).ready(function () {
+        $('#txtSerialNo').attr('readonly', true);
+    });
 </script>
 
 @if (TempData["Success"] != null)
@@ -84,6 +95,12 @@
         <div class="m-portlet__body">
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
+                    @Html.LabelFor(model => model.AssetSerialNo, htmlAttributes: new { })
+                    @Html.EditorFor(model => model.AssetSerialNo, new { htmlAttributes = new { @Id = "txtSerialNo", @class = "form-control m-input" } })
+                </div>
+            </div>
+            <div class="form-group m-form__group row">
+                <div class="col-lg-6">
                     @Html.LabelFor(model => model.AssetTypeID, htmlAttributes: new { })<span class="text-danger">*</span>
                     @Html.DropDownListFor(model => model.AssetTypeID, ViewBag.AssetTypeList as SelectList, "Please Select asset type", new { Id = "ddlAssetTypeId", autocomplete = "off", @class = "form-control m-input" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.AssetTypeID, "", new { @class = "text-danger" })</p>
@@ -97,6 +114,13 @@
                                                 (IEnumerable<SelectListItem>)ViewBag.AssetCompanyList,
                                 "Please Select asset company", new { @Id = "assetCompanyID", autocomplete = "off", @class = "form-control m-input" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.AssetCompanyID, "", new { @class = "text-danger" })</p>
+                </div>
+                <div id="otherAssets">
+                    <div class="col-lg-">
+                        @Html.LabelFor(model => model.OtherAssetCompanyName, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.OtherAssetCompanyName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control m-input", @placeholder = "other company name", @style = "text-transform:uppercase" } })
+                        <p class="help-block">@Html.ValidationMessageFor(m => m.OtherAssetCompanyName, "", new { @class = "text-danger" })</p>
+                    </div>
                 </div>
             </div>
             <div class="form-group m-form__group row">
