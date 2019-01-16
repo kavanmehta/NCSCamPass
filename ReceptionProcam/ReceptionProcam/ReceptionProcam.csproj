@@ -267,6 +267,9 @@
     <Compile Include="EntityModel\uspGetAssetList_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetEmployeeDesignation_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetEmployeeList_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

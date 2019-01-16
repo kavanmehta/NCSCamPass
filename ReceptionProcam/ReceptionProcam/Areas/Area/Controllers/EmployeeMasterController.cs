@@ -22,7 +22,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpGet]
         public void GetDesignationList()
         {
-            ViewBag.DesignationList = new SelectList(objAdminEnti.tblEmpDesignationMasters, "ID", "EmpDesignationName", 0);
+            ViewBag.DesignationList = new SelectList(objAdminEnti.uspGetEmployeeDesignation(), "ID", "EmpDesignationID", 0);
         }
 
         [HttpPost]

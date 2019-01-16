@@ -53,7 +53,7 @@
             <div class="form-group m-form__group row">
                 <div class="col-lg-6">
                     @Html.LabelFor(model => model.EmpDesignationID, htmlAttributes: new { })<span class="text-danger">*</span>
-                    @Html.DropDownListFor(m => m.EmpDesignationID, ViewBag.DesignationList as SelectList, new { Id = "ddlEmpDesignationId", autocomplete = "off", @class = "form-control m-input" })
+                    @Html.DropDownListFor(m => m.EmpDesignationID,(IEnumerable<SelectListItem>) ViewBag.DesignationList, "--select-designation--",new { Id = "ddlEmpDesignationId", autocomplete = "off", @class = "form-control m-input" })
                     <p class="help-block">@Html.ValidationMessageFor(m => m.EmpDesignationID, "", new { @class = "text-danger" })</p>
                 </div>
             </div>
