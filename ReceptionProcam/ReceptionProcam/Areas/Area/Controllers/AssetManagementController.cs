@@ -39,6 +39,32 @@ namespace ReceptionProcam.Areas.Area.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult AuditAsset()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AuditAssetData()
+        {
+            try
+            {
+                //Creating instance of DatabaseContext class  
+
+                using (DBNCSVisitorEntities dc = new DBNCSVisitorEntities())
+                {
+                    var data = dc.uspGetAllAuditDetails().OrderBy(a => a.AssetModelName).ToList();
+                    return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
         [HttpPost]
         public Boolean SubmitAsset(int id)
         {
@@ -119,6 +145,43 @@ namespace ReceptionProcam.Areas.Area.Controllers
             //ViewBag.EmployeeList = new SelectList(objAdminEnti.tblEmployeeDetails.Where(m => m.IsActive == true).ToList(), "ID", "EmpName", 0);
             ViewBag.EmployeeList = new SelectList(objAdminEnti.uspGetActiveEmployeeList(), "ID", "EmpId", 0);
 
+        }
+
+
+        [HttpPost]
+        public Boolean AuditAsset(int id , string remarks)
+        {
+            var result = objAdminEnti.tblAssetIssueDetails.SingleOrDefault(b => b.AssetId == id);
+            var assetTbl = objAdminEnti.tblAssetDetails.SingleOrDefault(b => b.ID == id);
+            //var assetAudi = objAdminEnti.tblAssetAudits.SingleOrDefault(b => b.AssetIssueID == result.ID);
+            if (result != null)
+            {
+                tblAssetAudit objtblAudit = new tblAssetAudit();
+                tblAssetDetail objtblAssetMaster = new tblAssetDetail();
+                if (assetTbl != null)
+                {
+                    assetTbl.IsAudited = true;
+                    //objAdminEnti.SaveChanges();
+
+                    AssetAudits assetAudi = new AssetAudits();
+                    objtblAudit.AssetIssueID = result.ID;
+                    objtblAudit.AuditDate = DateTime.Now;
+                    var date = DateTime.Now.ToString("yyyy");
+                    objtblAudit.AuditYear = int.Parse(date);
+                    //objtblAudit.Remarks = "Asset is audited by Audit team for" + date;
+                    objtblAudit.Remarks = remarks;
+                    objAdminEnti.tblAssetAudits.Add(objtblAudit);
+                    //objAdminEnti.tblAssetDetails.(objtblAssetMaster);
+                    objAdminEnti.SaveChanges();
+
+                }
+                TempData["SuccessSubmit"] = "Asset Audited successfully";
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

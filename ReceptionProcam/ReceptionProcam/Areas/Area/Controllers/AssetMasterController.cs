@@ -108,5 +108,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
             }
             return RedirectToAction("AssetList");
         }
+
+      
     }
 }

@@ -22,14 +22,18 @@ namespace ReceptionProcam.Areas.Area.Controllers
         [HttpGet]
         public void GetDesignationList()
         {
-            ViewBag.DesignationList = new SelectList(objAdminEnti.tblEmpDesignationMasters, "ID", "EmpDesignationName", 0);
+            ViewBag.DesignationList = new SelectList(objAdminEnti.uspGetEmployeeDesignation(), "EmpDesignationID", "EmpDesignationName", 0); 
+            //ViewBag.DesignationList = new SelectList(objAdminEnti.tblEmpDesignationMasters, "EmpDesignationID", "EmpDesignationName", 0); 
+                   
         }
+
+       
 
         [HttpPost]
         public ActionResult EmployeeMaster(EmployeeMasters objMaster)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 tblEmployeeDetail master = new tblEmployeeDetail();
                 master.EmpName = objMaster.EmpName;
                 master.EmpCode = objMaster.EmpCode;
@@ -43,8 +47,11 @@ namespace ReceptionProcam.Areas.Area.Controllers
                 objAdminEnti.SaveChanges();
                 TempData["Success"] = "Employee added successfully.";
                 return RedirectToAction("EmployeeMaster");
-            //}
-            //return View();
+            }
+            else
+            {
+                return View(objMaster);
+            }
         }
 
         [HttpGet]
@@ -62,7 +69,7 @@ namespace ReceptionProcam.Areas.Area.Controllers
         public ActionResult EditEmployee(int Id)
         {
             var empData = objAdminEnti.tblEmployeeDetails.Where(s => s.ID == Id).FirstOrDefault();
-            EmployeeMasters empDtls = new EmployeeMasters { ID = empData.ID, EmpName = empData.EmpName, EmpCode = empData.EmpCode, EmpDept = empData.EmpDept, EmpDesignationID = empData.EmpDesignationID, IsActive = Convert.ToBoolean(empData.IsActive) };
+            EmployeeMasters empDtls = new EmployeeMasters { ID = empData.ID, EmpName = empData.EmpName, EmpCode = empData.EmpCode, EmpDept = empData.EmpDept, EmpDesignationID = Convert.ToInt32(empData.EmpDesignationID), IsActive = Convert.ToBoolean(empData.IsActive) };
             GetDesignationList();
             return View(empDtls);
         }

@@ -1,5 +1,6 @@
 ﻿using ReceptionProcam.EntityModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -41,6 +42,8 @@ namespace ReceptionProcam.Areas.Area.Models
         [Required(ErrorMessage = "Is employee active or not!!")]
         public bool IsActive { get; set; }
         public virtual tblEmpDesignationMaster tblEmpDesignationMaster { get; set; }
+
+        public IList<EmployeeDesignations> EmpDesignations { get; set; }
 
 
     }

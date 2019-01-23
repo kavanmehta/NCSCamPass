@@ -37,5 +37,8 @@ namespace ReceptionProcam.Areas.Area.Models
         public string ModifiedBy { get; set; }
 
         public string ModifiedDate { get; set; }
+        public bool IsAudited { get; set; }
+
+        
     }
 }
