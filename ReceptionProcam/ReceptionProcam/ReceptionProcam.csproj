@@ -171,9 +171,11 @@
     <Compile Include="Areas\Area\Controllers\PurposeMasterController.cs" />
     <Compile Include="Areas\Area\Controllers\WelcomeController.cs" />
     <Compile Include="Areas\Area\Controllers\IdentificationMasterController.cs" />
+    <Compile Include="Areas\Area\Models\AssetAudits.cs" />
     <Compile Include="Areas\Area\Models\AssetMasters.cs" />
     <Compile Include="Areas\Area\Models\AssetModel.cs" />
     <Compile Include="Areas\Area\Models\clsAssetIssueDetails.cs" />
+    <Compile Include="Areas\Area\Models\EmployeeDesignations.cs" />
     <Compile Include="Areas\Area\Models\EmployeeMasters.cs" />
     <Compile Include="Areas\Area\Models\IdentityMasters.cs" />
     <Compile Include="Areas\Area\Models\PurposeMasters.cs" />
@@ -197,6 +199,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tblAssetAudit.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tblAssetCompany.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -252,6 +257,9 @@
     <Compile Include="EntityModel\uspGetAllActiveSoftwareAssets_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\uspGetAllAuditDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\uspGetAllGate_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -265,6 +273,12 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\uspGetAssetList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetAuditDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\uspGetEmployeeDesignation_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\uspGetEmployeeList_Result.cs">
@@ -651,6 +665,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\Area\Views\AssetManagement\AuditAsset.cshtml" />
+    <Content Include="Areas\Area\Views\AssetManagement\_PatialAuditAssetRemarks.cshtml" />
     <None Include="Properties\PublishProfiles\NCSI.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
