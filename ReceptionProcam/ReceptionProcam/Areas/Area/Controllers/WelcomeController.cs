@@ -13,5 +13,9 @@ namespace ReceptionProcam.Areas.Area.Controllers
         {
             return View();
         }
+        public ActionResult AssetIndex()
+        {
+            return View();
+        }
     }
 }

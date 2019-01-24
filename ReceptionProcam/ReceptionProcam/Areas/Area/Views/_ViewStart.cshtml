@@ -1,3 +1,18 @@
-﻿@{
+﻿@*@{
     Layout = "~/Areas/Area/Views/Shared/_Layout.cshtml";
-}
+}*@
+
+@*@{
+    if (this.User.IsInRole("Admin") || !this.User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Area/Views/Shared/_Layout.cshtml";
+    }
+    if (this.User.IsInRole("Security") || !this.User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (this.User.IsInRole("AssetAdmin") || !this.User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Area/Views/Shared/_LayoutAsset.cshtml";
+    }
+}*@

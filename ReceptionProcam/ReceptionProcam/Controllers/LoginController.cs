@@ -22,7 +22,7 @@ namespace ReceptionProcam.Controllers
         {
             //if (ModelState.IsValid)
             //{
-
+                string Layout = "";
                 var user = (from userlist in objVisEnti.tblUserLogins
                             where userlist.UserName == login.UserName && userlist.Password == login.Password
                             select new
@@ -43,9 +43,13 @@ namespace ReceptionProcam.Controllers
                         return Redirect("/home/index");
 
                     }
-                    else
+                    if(Session["Role"].ToString() == "Admin")
                     {
                         return Redirect("/Area/Welcome/index");
+                    }
+                    if (Session["Role"].ToString() == "AssetAdmin")
+                    {
+                        return Redirect("/Area/Welcome/assetindex");
                     }
                 }
                 else

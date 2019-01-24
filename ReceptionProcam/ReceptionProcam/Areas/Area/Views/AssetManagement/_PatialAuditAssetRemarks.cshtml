@@ -1,0 +1,28 @@
+﻿@model ReceptionProcam.Areas.Area.Models.AssetAudits
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Audit Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group m-form__group row">
+
+                    <div class="col-lg-6">
+                        @Html.LabelFor(model => model.Remarks, htmlAttributes: new { })
+                        @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @Id = "txtRemarks",autocomplete = "off", @class = "form-control m-input", @placeholder = "any remarks!!"} })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hidAuditAsset" />
+                <button type="button" id="auditAssetConfirm" onclick="auditAsset()" class="btn btn-primary">Submit</button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
