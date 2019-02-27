@@ -22,5 +22,7 @@ namespace ReceptionProcam.EntityModel
         public string LicesenceNo { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string OtherAssetCompanyName { get; set; }
+        public string AssetSerialNo { get; set; }
     }
 }

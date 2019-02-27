@@ -10,21 +10,13 @@
 namespace ReceptionProcam.EntityModel
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblAssetDetail
+    public partial class uspGetAllActiveSoftwareAssets_Result
     {
-        public tblAssetDetail()
-        {
-            this.tblAssetIssueDetails = new HashSet<tblAssetIssueDetail>();
-        }
-    
         public int ID { get; set; }
         public string AssetModelName { get; set; }
         public Nullable<int> AssetTypeID { get; set; }
         public Nullable<int> AssetCompanyID { get; set; }
-        public string OtherAssetCompanyName { get; set; }
-        public string AssetSerialNo { get; set; }
         public Nullable<System.DateTime> ManufacturingDate { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -33,10 +25,5 @@ namespace ReceptionProcam.EntityModel
         public string ModifiedBy { get; set; }
         public Nullable<bool> IsIssued { get; set; }
         public string LicesenceNo { get; set; }
-        public Nullable<bool> IsAudited { get; set; }
-    
-        public virtual tblAssetCompany tblAssetCompany { get; set; }
-        public virtual tblAssetType tblAssetType { get; set; }
-        public virtual ICollection<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
     }
 }

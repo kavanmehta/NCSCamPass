@@ -27,6 +27,7 @@ namespace ReceptionProcam.EntityModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblAssetAudit> tblAssetAudits { get; set; }
         public virtual DbSet<tblAssetCompany> tblAssetCompanies { get; set; }
         public virtual DbSet<tblAssetDetail> tblAssetDetails { get; set; }
         public virtual DbSet<tblAssetIssueDetail> tblAssetIssueDetails { get; set; }
@@ -58,9 +59,34 @@ namespace ReceptionProcam.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsertAssetIssueDetails", empIdParameter, assetIdParameter, createdByParameter);
         }
     
+        public virtual ObjectResult<uspGetActiveEmployeeList_Result> uspGetActiveEmployeeList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetActiveEmployeeList_Result>("uspGetActiveEmployeeList");
+        }
+    
         public virtual ObjectResult<uspGetAllActiveAssets_Result> uspGetAllActiveAssets()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllActiveAssets_Result>("uspGetAllActiveAssets");
+        }
+    
+        public virtual ObjectResult<uspGetAllActiveHardwareAssets_Result> uspGetAllActiveHardwareAssets()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllActiveHardwareAssets_Result>("uspGetAllActiveHardwareAssets");
+        }
+    
+        public virtual ObjectResult<uspGetAllActiveNetworkAssets_Result> uspGetAllActiveNetworkAssets()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllActiveNetworkAssets_Result>("uspGetAllActiveNetworkAssets");
+        }
+    
+        public virtual ObjectResult<uspGetAllActiveSoftwareAssets_Result> uspGetAllActiveSoftwareAssets()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllActiveSoftwareAssets_Result>("uspGetAllActiveSoftwareAssets");
+        }
+    
+        public virtual ObjectResult<uspGetAllAuditDetails_Result> uspGetAllAuditDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllAuditDetails_Result>("uspGetAllAuditDetails");
         }
     
         public virtual ObjectResult<uspGetAllGate_Result> uspGetAllGate()
@@ -86,6 +112,20 @@ namespace ReceptionProcam.EntityModel
         public virtual ObjectResult<uspGetAssetList_Result> uspGetAssetList()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAssetList_Result>("uspGetAssetList");
+        }
+    
+        public virtual ObjectResult<uspGetAuditDetails_Result> uspGetAuditDetails(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAuditDetails_Result>("uspGetAuditDetails", iDParameter);
+        }
+    
+        public virtual ObjectResult<uspGetEmployeeDesignation_Result> uspGetEmployeeDesignation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetEmployeeDesignation_Result>("uspGetEmployeeDesignation");
         }
     
         public virtual ObjectResult<uspGetEmployeeList_Result> uspGetEmployeeList()
